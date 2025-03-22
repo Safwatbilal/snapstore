@@ -1,11 +1,12 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import AppSidebar from "@/layout/nav/AppSideBar";
-import { firstNavConfig } from "@/layout/nav/config";
+import Providers from "@/components/Providers";
+import SideBarAll from "@/components/sidebar/SideBarAll";
+
 export const metadata: Metadata = {
   title: "Snapstore",
-  description: "webisite for sale and by A to Z",
+  description: "website for sale and buy A to Z",
 };
 
 export default function RootLayout({
@@ -14,16 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <SidebarProvider>
-          <AppSidebar navListData={firstNavConfig}/>
-          <main>
-            <SidebarTrigger></SidebarTrigger>
-            {children}
-          </main>
-        </SidebarProvider>
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body>
+          <div className="flex">
+            <SideBarAll children={children}></SideBarAll>
+          </div>
+        </body>
+      </html>
+    </Providers>
   );
 }

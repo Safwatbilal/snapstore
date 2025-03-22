@@ -1,14 +1,10 @@
-import { MdLightMode, MdDarkMode } from "react-icons/md";
-
-export const themTabs=[
+export const LanguageTabs=[
     {
-        label:'Dark',
-        value:'d',
-        icon:<MdLightMode></MdLightMode>
+        label:'English',
+        value:'en',
     },
     {
-        label:'Light',
-        value:'l',
-        icon:<MdDarkMode></MdDarkMode>
+        label:'Arabic',
+        value:'ar',
     }
 ]

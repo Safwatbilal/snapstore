@@ -1,42 +1,22 @@
 import React from "react";
-import { firstNavConfig } from "./config";
-import NavItem from "./NavItem";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { appNav,anylistNav } from "./config";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar"
- 
-
-import Link from "next/link";
+import SideBarItems from "./SideBarItems";
 const AppSideBar:React.FunctionComponent<{
-    navListData:typeof firstNavConfig;
-}>=({navListData})=>{
+    navListDataApp:typeof appNav;
+    navListDataAnylist:typeof anylistNav,
+
+}>=({navListDataApp,navListDataAnylist})=>{
     return(
-        <Sidebar>
-      <SidebarContent>
+        <Sidebar  >
+      <SidebarContent >
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navListData.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.pathName}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
+          <SideBarItems titleNav='Application' navListData={navListDataApp}></SideBarItems>
+          <SideBarItems titleNav='Anylist' navListData={navListDataAnylist}></SideBarItems>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

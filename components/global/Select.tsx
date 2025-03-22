@@ -5,22 +5,24 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { themTabs } from "@/constansts/static-options";
-const SelectThems=()=>{
+import { LanguageTabs } from "@/constansts/static-options";
+const SelectTopBar=()=>{
     return(
-        <Select>
+        <div className="">
+        <Select >
             <SelectTrigger aria-label="language button">
                 <SelectValue></SelectValue>
 
             </SelectTrigger>
             <SelectContent>
-            {themTabs.map(({ label, value }, idx) => (
+            {LanguageTabs.map(({ label, value }, idx) => (
                 <SelectItem key={idx} value={value} className="flex">
                     {label}
                 </SelectItem>
         ))}
             </SelectContent>
         </Select>
+        </div>
     )
 }
-export default SelectThems
+export default SelectTopBar
