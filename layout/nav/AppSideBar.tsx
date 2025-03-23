@@ -6,13 +6,16 @@ import {
   SidebarGroup,
 } from "@/components/ui/sidebar"
 import SideBarItems from "./SideBarItems";
+import { useSelector } from "react-redux";
 const AppSideBar:React.FunctionComponent<{
     navListDataApp:typeof appNav;
     navListDataAnylist:typeof anylistNav,
 
 }>=({navListDataApp,navListDataAnylist})=>{
+  const { lang } = useSelector((state: IRootState) => state.control);
+
     return(
-        <Sidebar  >
+        <Sidebar side={`${lang==='en'?'left':'right'}`} >
       <SidebarContent >
         <SidebarGroup>
           <SideBarItems titleNav='Application' navListData={navListDataApp}></SideBarItems>

@@ -17,37 +17,37 @@ const ICONS = {
 
 export const appNav = [
     {
-        title: "Home",
+        title: "sidebar.home",
         pathName: HOME_PATH.HOME,
         icon: ICONS.home,
     },
     {
-        title: "customer",
+        title: "sidebar.customer",
         pathName: CUSTOMERS_PATH.CUSTOMERS,
         icon: ICONS.customer,
     },
     {
-        title: "product",
+        title: "sidebar.product",
         pathName: PRODUCT_PATH.PRODUCTS,
         icon: ICONS.product,
     },
     {
-        title: "category",
+        title: "sidebar.category",
         pathName: CATEGORY_PATH.CATEGORY,
         icon: ICONS.category,
     },
     {
-        title: "coupon",
+        title: "sidebar.coupon",
         pathName: COUPON_PATH.COUPON,
         icon: ICONS.coupon,
     },
     {
-        title: "order",
+        title: "sidebar.order",
         pathName: ORDER_PATH.ORDER,
         icon: ICONS.order,
     },
     {
-        title: "notification",
+        title: "sidebar.notification",
         pathName: NOTIFICATION_PATH.NOTIFICATION,
         icon: ICONS.notification,
     },
@@ -55,12 +55,12 @@ export const appNav = [
 
 export const anylistNav = [
     {
-        title:'Profile',
+        title:'sidebar.profile',
         pathName:'s',
         icon:ICONS.profile
     },
     {
-        title:'Anylist',
+        title:'sidebar.analysis',
         pathName:'s',
         icon:ICONS.anylist
     }

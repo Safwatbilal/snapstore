@@ -1,5 +1,27 @@
 {
-    "aa":{
-        "aa":"ss"
+    "sidebar":{
+        "home":"Home",
+        "customer":"Customer",
+        "product":"Product",
+        "category":"Category",
+        "coupon":"Coupon",
+        "order":"Order",
+        "notification":"Notification",
+        "profile":"Profile",
+        "analysis":"Analysis"
+    },
+    "sign":{
+        "sign":"Sign Up",
+        "login":"Login",
+        "create":"Create New Account"
+    },
+    "form":{
+        "field_is_required":"This field is required",
+        "form.at_least_6_char":"This field at least 6 char",
+        "back":"back"
+    },
+    "user":{
+        "userName":"userName"
     }
+
 }

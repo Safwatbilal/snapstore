@@ -1,5 +1,23 @@
 {
-    "aa":{
-        "aa":"ss"
+    "sidebar": {
+        "home": "الرئيسية",
+        "customer": "العملاء",
+        "product": "المنتجات",
+        "category": "الفئات",
+        "coupon": "الرمز الترويجي",
+        "order": "الطلبات",
+        "notification": "الإشعارات",
+        "profile": "الملف الشخصي",
+        "analysis": "تحليل"
+    },
+    "sign": {
+    "sign": "انشاء حساب",
+    "login": "تسجيل الدخول"
+    },
+    "user":{
+        "userName":"اسم المستخدم"
     }
+   
+    
+
 }

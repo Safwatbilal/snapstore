@@ -28,3 +28,6 @@ export const SETTING_PATH = {
 export const NOT_FOUND_PATH = {
     NOT_FOUND: "/not-found",
 };
+export const SIGNUP_PATH={
+    SIGNUP:'/sign-up'
+}

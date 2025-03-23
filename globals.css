@@ -1,8 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@tailwind utilities;
 @custom-variant dark (&:is(.dark *));
-
+@layer utilities{
+  .button{
+    @apply cursor-pointer hover:bg-blue-400 font-normal
+  }
+  .colorText{
+    @apply text-blue-400
+  }
+}
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -119,6 +127,9 @@
   }
   .container{
     @apply px-4 mx-auto;
+  }
+  .color{
+    @apply bg-blue-500
   }
 
 }

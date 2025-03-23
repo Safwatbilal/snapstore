@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { updateControlState } from '@/store/slice/control'
 import { dispatch } from '@/store/store'
 import { changeLanguage } from '@/lib/i18n'
+import { useTranslation } from 'react-i18next'
 interface NavItem {
   title: string;
   pathName: string;
@@ -13,6 +14,7 @@ interface NavItem {
 }
 const SideBarItems:React.FunctionComponent<{titleNav :string,navListData:NavItem[]}> = ({titleNav,navListData}) => {
   const { lang } = useSelector((state: IRootState) => state.control);
+  const {t}=useTranslation()
   return (
     <>
     <SidebarGroupLabel>{titleNav}</SidebarGroupLabel>
@@ -23,7 +25,7 @@ const SideBarItems:React.FunctionComponent<{titleNav :string,navListData:NavItem
             <SidebarMenuButton asChild>
               <Link href={item.pathName}>
                 {item.icon}
-                <span>{item.title}</span>
+                <span>{t(item.title)}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
