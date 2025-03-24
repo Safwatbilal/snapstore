@@ -20,8 +20,11 @@
         "form.at_least_6_char":"This field at least 6 char",
         "back":"back"
     },
-    "user":{
-        "userName":"userName"
+    "user": {
+        "userName": "User Name",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "Phone Number",
+        "password": "Password"
     }
-
 }

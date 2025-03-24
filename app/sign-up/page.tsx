@@ -1,24 +1,24 @@
 'use client'
 import React from 'react'
+import { v4 as uuidv4 } from "uuid";
+
+
 import { useRouter } from 'next/navigation'
 import { useForm,SubmitHandler } from 'react-hook-form'
 import PageTitle from '@/components/global/PageTitle'
-import { Input } from '@/components/ui/input'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ISignUpAction, defaultSignUpAction, signUpValidation } from '@/components/validation/signUp'
 import { Button } from '@/components/ui/button'
 import RHFTextField from '@/components/hook-form/RHFTextFiled'
+import queries from '@/api/auth/query'
+import { HOME_PATH } from '@/routes/path'
+import {toast} from 'sonner'
 const Page = () => {
+  const uniqueId = uuidv4();
+  const router=useRouter()
   const { t } = useTranslation()
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<ISignUpAction>({
-  //   defaultValues: defaultSignUpAction,
-  //   resolver: yupResolver(signUpValidation()) 
-  // })
+  const {mutate,isPending}=queries.SignUp()
   const {
     register,
     handleSubmit,
@@ -29,8 +29,19 @@ const Page = () => {
     defaultValues:defaultSignUpAction,
     resolver:yupResolver(signUpValidation())as unknown as Resolver<ISignUpAction>
   })
-  console.log(errors)
-  const onSubmit: SubmitHandler<ISignUpAction> = (data:ISignUpAction) => console.log(data)
+  const onSubmit: SubmitHandler<ISignUpAction> = (data:ISignUpAction) => {
+    const dateID={
+      ...data,
+      token:uniqueId
+    }
+    mutate(dateID,{
+        onSuccess:(data)=>{
+          toast.success('ss')
+          localStorage.setItem('token',uniqueId)
+          router.push(HOME_PATH.HOME)
+        }
+      })
+  }
 
   return (
     <div className='p-6'>
@@ -45,40 +56,41 @@ const Page = () => {
                   name='userName'
                   type='text'
                   control={control}
-                  lable='user.userName'
+                  label='user.userName'
                   placeholder='user.userName'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
-                  name='userName'
+                  name='firstName'
                   type='text'
                   control={control}
-                  lable='user.userName'
-                  placeholder='user.userName'
+                  label='user.firstName'
+                  placeholder='user.firstName'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
-                  name='userName'
+                  name='lastName'
                   type='text'
                   control={control}
-                  lable='user.userName'
-                  placeholder='user.userName'
+                  label='user.lastName'
+                  placeholder='user.lastName'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
-                  name='userName'
-                  type='text'
+                  name='phoneNumber'
+                  type='number'
                   control={control}
-                  lable='user.userName'
-                  placeholder='user.userName'
+                  label='user.phoneNumber'
+                  placeholder='user.phoneNumber'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
-                  name='userName'
-                  type='text'
+                  name='password'
+                  isPassword={true}
+                  type='password'
                   control={control}
-                  lable='user.userName'
-                  placeholder='user.userName'
+                  label='user.password'
+                  placeholder='user.password'
                   isLoading={false}
                 ></RHFTextField>
             </div>
@@ -86,12 +98,13 @@ const Page = () => {
             <Button
               type="button"
               variant="outline"
-              className="w-full"
+              className="w-full "
+
             >
               {t("form.back")}
             </Button>
-            <Button  className="w-full " >
-              sign up
+            <Button  className="w-full buttonSubmit" >
+              {t("sign.sign")}
             </Button>
           </div>
       </form>

@@ -14,6 +14,7 @@ const SideBarAll: React.FunctionComponent<{ children: any }> = ({ children }) =>
     const handleChangeStateSideBar = () => {
         dispatch(updateControlStateSideBar({ key: "state", payload: state === "open" ? "close" : "open" }));
     };
+    console.log(state)
     const sidebarWidth = state === "open" ? 170 : 40;
     const marginStyle = lang === 'en' ? { marginLeft: sidebarWidth - 80 } : { marginRight: sidebarWidth - 80 };
     const contentMargin = lang === 'en' ? { marginLeft: sidebarWidth } : { marginRight: sidebarWidth };

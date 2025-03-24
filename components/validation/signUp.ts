@@ -7,13 +7,15 @@ export type ISignUpAction={
     lastName: string;
     phoneNumber: string;
     password?: string;
+    token?:string;
 }
 export const defaultSignUpAction={
     userName: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
-    password: ""
+    password: "",
+    token:""
 }
 export const signUpValidation=()=>
     object().shape({

@@ -10,6 +10,12 @@
   .colorText{
     @apply text-blue-400
   }
+  .buttonSubmit{
+    @apply bg-blue-500 hover:bg-blue-400 cursor-pointer
+  }
+  .icon{
+    @apply text-blue-500  cursor-pointer
+  }
 }
 :root {
   --radius: 0.625rem;
