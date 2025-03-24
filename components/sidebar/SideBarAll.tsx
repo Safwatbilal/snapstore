@@ -12,17 +12,17 @@ const SideBarAll: React.FunctionComponent<{ children: any }> = ({ children }) =>
     const { state } = useSelector((state: IRootState) => state.sidebar);
     const { lang } = useSelector((state: IRootState) => state.control);
     const handleChangeStateSideBar = () => {
-        dispatch(updateControlStateSideBar({ key: "state", payload: state === "open" ? "close" : "open" }));
+        dispatch(updateControlStateSideBar({ key: "state", payload: !state} ));
     };
     console.log(state)
-    const sidebarWidth = state === "open" ? 170 : 40;
+    const sidebarWidth = state  ? 170 : 40;
     const marginStyle = lang === 'en' ? { marginLeft: sidebarWidth - 80 } : { marginRight: sidebarWidth - 80 };
     const contentMargin = lang === 'en' ? { marginLeft: sidebarWidth } : { marginRight: sidebarWidth };
     const paddingStyle=lang==='en'?{paddingLeft:sidebarWidth}:{paddingRight:sidebarWidth}
     
     return (
         <SidebarProvider>
-            <AppSidebar navListDataAnylist={anylistNav} navListDataApp={appNav} />
+            <AppSidebar navListDataAnylist={anylistNav} navListDataApp={appNav}  />
             <main className="flex flex-col min-h-screen">
                 <div className=" flex items-center w-full justify-between p-4 h-16 text-black bg-white fixed right-0 " style={paddingStyle}>
                     <div  style={marginStyle}>

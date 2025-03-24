@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export type ILanguages = "open" | "close";
+export type ILanguages = false | true;
 interface initialStateProps {
   tempId?: string;
   state: ILanguages;
 }
 
 const initialState: initialStateProps = {
-  state: "open",
+  state: false,
 };
 
 const slice = createSlice({
