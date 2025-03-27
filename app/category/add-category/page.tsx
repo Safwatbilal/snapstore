@@ -8,8 +8,10 @@ import { categotyValidation, defaultCategoryAction, ICategoryAction } from '@/co
 import { yupResolver } from '@hookform/resolvers/yup'
 import {toast} from 'sonner'
 import RHFTextField from '@/components/hook-form/RHFTextFiled'
+import { useTranslation } from 'react-i18next'
 const AddCategory = () => {
   const {mutate}=queries.addCategory()
+  const {t}=useTranslation()
   const {
     register,
     handleSubmit,
@@ -35,7 +37,7 @@ const AddCategory = () => {
   return (
     
     <div >
-        <PageTitle title={'add Category'} subTitle={''} buttonTitle='' path={''}/>
+        <PageTitle title={t('category.add_category')} subTitle={''} buttonTitle='' path={''}/>
         <form className='pt-6' onSubmit={handleSubmit(onSubmit)}
         >
             <div className='form'>
@@ -43,17 +45,17 @@ const AddCategory = () => {
               name='categoryName'
               type='text'
               control={control}
-              label='categoryName'
+              label={t('category.categoryName')}
               isLoading={false}
-              placeholder='categoryName'
+              placeholder={t('category.categoryName')}
               ></RHFTextField>
               <RHFTextField
               name='url'
               type='text'
               control={control}
-              label='url'
+              label={t('category.url')}
               isLoading={false}
-              placeholder='url'
+              placeholder={t('category.url')}
               ></RHFTextField>
                 <div className="divButtonForm">
             <Button
@@ -62,10 +64,10 @@ const AddCategory = () => {
               className="w-full "
 
             >
-              Back
+              {t('global.back')}
             </Button>
             <Button  className="w-full buttonSubmit" >
-              Add
+            {t('global.add')}
             </Button>
           </div>
             </div>

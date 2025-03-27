@@ -1,4 +1,9 @@
 {
+    "global":{
+        "view_and_mange":"view and mange",
+        "add":"Add",
+        "back":"Back"
+    },
     "sidebar":{
         "Home":"Home",
         "Customer":"Customer",
@@ -9,7 +14,8 @@
         "Notification":"Notification",
         "Profile":"Profile",
         "Analysis":"Analysis",
-        "Application":"Application"
+        "Application":"Application",
+        "Add-category":"Add category"
     },
     "topNav":{
         "english":"English",
@@ -31,5 +37,11 @@
         "lastName": "Last Name",
         "phoneNumber": "Phone Number",
         "password": "Password"
+    },
+    "category":{
+        "category":"Category",
+        "add_category":"add category",
+        "categoryName":"Category Name",
+        "url":"url"
     }
 }

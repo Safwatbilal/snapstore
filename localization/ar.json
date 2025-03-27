@@ -1,4 +1,9 @@
 {
+    "global":{
+        "view_and_mange":"عرض و ادارة",
+        "add":"إضافة",
+        "back":"رجوع"
+    },
     "sidebar": {
         "Home": "الرئيسية",
         "Customer": "العملاء",
@@ -9,14 +14,15 @@
         "Notification": "الإشعارات",
         "Profile": "الملف الشخصي",
         "Analysis": "تحليل",
-        "Application":"تطبيق"
+        "Application":"تطبيق",
+        "Add-category":"إضافة فئة"
     },
     "topNav":{
         "english":"الانكليزية",
         "arabic":"العربية"
     },
     "sign": {
-        "sign": "انشاء حساب",
+        "sign": "إنشاء حساب",
         "login": "تسجيل الدخول"
     },
     "user": {
@@ -25,8 +31,13 @@
         "lastName": "الاسم الاخير",
         "phoneNumber": "رقم الهاتف",
         "password": "كلمة المرور"
+    },
+    "category":{
+        "category":"الفئات",
+        "add_category":"إضافة فئة",
+        "categoryName":"اسم الفئة",
+        "url":"رابط الصورة"
     }
-   
     
 
 }
