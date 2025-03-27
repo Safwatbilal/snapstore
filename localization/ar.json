@@ -2,7 +2,9 @@
     "global":{
         "view_and_mange":"عرض و ادارة",
         "add":"إضافة",
-        "back":"رجوع"
+        "back":"رجوع",
+        "options":"خيارات",
+        "search":"بحث"
     },
     "sidebar": {
         "Home": "الرئيسية",
@@ -36,7 +38,8 @@
         "category":"الفئات",
         "add_category":"إضافة فئة",
         "categoryName":"اسم الفئة",
-        "url":"رابط الصورة"
+        "url":"رابط الصورة",
+        "photoCategory":"صورة الفئة"
     }
     
 

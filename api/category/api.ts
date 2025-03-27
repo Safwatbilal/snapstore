@@ -2,7 +2,7 @@ import axios from "@/lib/axios";
 import { API_BASE_URL } from "@/lib/axios";
 import { ICategoryForm } from "./type";
 const API={
-    getAllCategory:async (userId: any)=>{
+    getAllCategory:async (userId: any,search:string)=>{
         const { data } = await axios<ICategoryForm>(API_BASE_URL+'/category.json')
         if (!data) return [];
             const categories:ICategoryForm[] = Object.keys(data)
@@ -10,8 +10,10 @@ const API={
                 .map(key => ({
                     id: key,
                     ...data[key],
-                }));
-
+                }))
+                .filter(category => 
+                    category.categoryName.toLowerCase().includes(search.toLowerCase())
+                );
             return categories;
     
     },

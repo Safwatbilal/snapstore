@@ -2,7 +2,9 @@
     "global":{
         "view_and_mange":"view and mange",
         "add":"Add",
-        "back":"Back"
+        "back":"Back",
+        "options":"options",
+        "search":"search"
     },
     "sidebar":{
         "Home":"Home",
@@ -42,6 +44,7 @@
         "category":"Category",
         "add_category":"add category",
         "categoryName":"Category Name",
-        "url":"url"
+        "url":"url",
+        "photoCategory":"Category Photo"
     }
 }

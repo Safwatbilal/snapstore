@@ -1,3 +1,4 @@
+
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type ILanguages = "ar" | "en";
@@ -5,12 +6,14 @@ export type ILogout=false|true
 interface initialStateProps {
   tempId?: string;
   lang: ILanguages;
-  isLogout:boolean
+  isLogout:boolean,
+  search:string
 }
 const storedLogout = localStorage.getItem("token");
 const initialState: initialStateProps = {
   lang: "en",
   isLogout: storedLogout===null ? true : false,
+  search:''
 };
 
 const slice = createSlice({

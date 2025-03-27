@@ -13,7 +13,7 @@ const PageTitle:React.FunctionComponent<{
   return (
     <>
     <div className="flex justify-between items-center ">
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-1'>
         <Typography  variant={'h6'} size={'medium'} >{title}</Typography>
         <Typography  className='colorText ' variant={'subtitle2'} size={'semibold'}>{subTitle}</Typography>
       </div>
