@@ -1,12 +1,13 @@
 import { Calendar, Home, Inbox, Search, Settings,Group,ShoppingCart,Type,ListOrdered ,MessageCircle, User,BarChart} from "lucide-react"
+import { FolderKanban } from "lucide-react";
 
 import { HOME_PATH, CUSTOMERS_PATH, COUPON_PATH, NOTIFICATION_PATH, ORDER_PATH, PRODUCT_PATH, SETTING_PATH, CATEGORY_PATH } from "@/routes/path";
 
-const ICONS = {
+export const ICONS = {
     home:  <Home size={15} />,
     customer: <Group size={15} />,
     product: <ShoppingCart size={15} />,
-    category: <Type size={15} />,
+    category: <FolderKanban size={15} />,
     coupon: <Home size={15}/>,
     order: <ListOrdered size={15} />,
     notification: <Home size={15}/>,
@@ -17,37 +18,37 @@ const ICONS = {
 
 export const appNav = [
     {
-        title: "sidebar.home",
+        title: "sidebar.Home",
         pathName: HOME_PATH.HOME,
         icon: ICONS.home,
     },
     {
-        title: "sidebar.customer",
+        title: "sidebar.Customer",
         pathName: CUSTOMERS_PATH.CUSTOMERS,
         icon: ICONS.customer,
     },
     {
-        title: "sidebar.product",
+        title: "sidebar.Product",
         pathName: PRODUCT_PATH.PRODUCTS,
         icon: ICONS.product,
     },
     {
-        title: "sidebar.category",
+        title: "sidebar.Category",
         pathName: CATEGORY_PATH.CATEGORY,
         icon: ICONS.category,
     },
     {
-        title: "sidebar.coupon",
+        title: "sidebar.Coupon",
         pathName: COUPON_PATH.COUPON,
         icon: ICONS.coupon,
     },
     {
-        title: "sidebar.order",
+        title: "sidebar.Order",
         pathName: ORDER_PATH.ORDER,
         icon: ICONS.order,
     },
     {
-        title: "sidebar.notification",
+        title: "sidebar.Notification",
         pathName: NOTIFICATION_PATH.NOTIFICATION,
         icon: ICONS.notification,
     },
@@ -55,12 +56,12 @@ export const appNav = [
 
 export const anylistNav = [
     {
-        title:'sidebar.profile',
+        title:'sidebar.Profile',
         pathName:'s',
         icon:ICONS.profile
     },
     {
-        title:'sidebar.analysis',
+        title:'sidebar.Analysis',
         pathName:'s',
         icon:ICONS.anylist
     }

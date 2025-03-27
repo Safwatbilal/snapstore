@@ -1,14 +1,19 @@
 {
     "sidebar":{
-        "home":"Home",
-        "customer":"Customer",
-        "product":"Product",
-        "category":"Category",
-        "coupon":"Coupon",
-        "order":"Order",
-        "notification":"Notification",
-        "profile":"Profile",
-        "analysis":"Analysis"
+        "Home":"Home",
+        "Customer":"Customer",
+        "Product":"Product",
+        "Category":"Category",
+        "Coupon":"Coupon",
+        "Order":"Order",
+        "Notification":"Notification",
+        "Profile":"Profile",
+        "Analysis":"Analysis",
+        "Application":"Application"
+    },
+    "topNav":{
+        "english":"English",
+        "arabic":"Arabic"
     },
     "sign":{
         "sign":"Sign Up",

@@ -4,10 +4,12 @@ export type ILanguages = "ar" | "en";
 interface initialStateProps {
   tempId?: string;
   lang: ILanguages;
+  isLogout:boolean
 }
 
 const initialState: initialStateProps = {
   lang: "en",
+  isLogout:false
 };
 
 const slice = createSlice({

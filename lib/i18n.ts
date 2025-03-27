@@ -5,9 +5,10 @@ import ar from "@/localization/ar.json";
 import en from "@/localization/en.json";
 
 const language = localStorage.getItem("i18nextLng") || "en";
+console.log(language)
 if (language === "ar") {
   document.documentElement.lang = "ar";
-  document.body.dir = "rtl";
+  document.body.dir = "ltr";
 } else {
   document.documentElement.lang = "en";
   document.body.dir = "ltr";

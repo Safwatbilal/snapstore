@@ -9,12 +9,14 @@ export const CUSTOMERS_PATH = {
 };
 export const CATEGORY_PATH = {
     CATEGORY: "/category",
+    ADDCATEGORY:'/category/add-category'
 };
 export const PRODUCT_PATH = {
     PRODUCTS: "/products",
 };
 export const COUPON_PATH = {
     COUPON: "/coupons",
+    
 };
 export const NOTIFICATION_PATH = {
     NOTIFICATION: "/notifications",

@@ -1,10 +1,10 @@
 export const LanguageTabs=[
     {
-        label:'English',
+        label:'topNav.english',
         value:'en',
     },
     {
-        label:'Arabic',
+        label:'topNav.arabic',
         value:'ar',
     }
 ]

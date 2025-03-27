@@ -1,8 +1,6 @@
 'use client'
 import React from 'react'
 import { v4 as uuidv4 } from "uuid";
-
-
 import { useRouter } from 'next/navigation'
 import { useForm,SubmitHandler } from 'react-hook-form'
 import PageTitle from '@/components/global/PageTitle'
@@ -14,6 +12,8 @@ import RHFTextField from '@/components/hook-form/RHFTextFiled'
 import queries from '@/api/auth/query'
 import { HOME_PATH } from '@/routes/path'
 import {toast} from 'sonner'
+import { dispatch } from '@/store/store';
+import { updateControlState } from '@/store/slice/control';
 const Page = () => {
   const uniqueId = uuidv4();
   const router=useRouter()
@@ -37,6 +37,7 @@ const Page = () => {
     mutate(dateID,{
         onSuccess:(data)=>{
           toast.success('ss')
+           dispatch(updateControlState({ key: "isLogout", payload: false }));
           localStorage.setItem('token',uniqueId)
           router.push(HOME_PATH.HOME)
         }
@@ -45,13 +46,13 @@ const Page = () => {
 
   return (
     <div className='p-6'>
-      <PageTitle Title={t('sign.sign')} SubTitle={t('sign.create')} />
+      <PageTitle title={t('sign.sign')} subTitle={t('sign.create')} buttonTitle='' />
         <form 
           onSubmit={handleSubmit(onSubmit)}
           className='pt-6'
           >
           
-            <div className=" w-full p-6 border border-solid rounded-md gap-4 flex flex-col bg-white">
+            <div className="form">
                 <RHFTextField
                   name='userName'
                   type='text'

@@ -13,24 +13,24 @@ interface NavItem {
   icon: React.ReactNode;
 }
 const SideBarItems:React.FunctionComponent<{titleNav :string,navListData:NavItem[]}> = ({titleNav,navListData}) => {
-  const { lang } = useSelector((state: IRootState) => state.control);
+ // const { lang } = useSelector((state: IRootState) => state.control);
   const {t}=useTranslation()
   return (
     <>
     <SidebarGroupLabel>{titleNav}</SidebarGroupLabel>
-    <SidebarGroupContent >
-      <SidebarMenu >
-        {navListData.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild>
-              <Link href={item.pathName}>
-                {item.icon}
-                <span>{t(item.title)}</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
+      <SidebarGroupContent  >
+        <SidebarMenu >
+          {navListData.map((item) => (
+            <SidebarMenuItem key={item.title} className='py-3'>
+              <SidebarMenuButton asChild>
+                <Link href={item.pathName}>
+                  {item.icon}
+                  <span>{t(item.title)}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
     </SidebarGroupContent>
     </>
   )

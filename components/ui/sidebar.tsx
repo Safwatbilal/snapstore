@@ -4,7 +4,6 @@ import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
 import { PanelLeftIcon } from "lucide-react"
-
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -25,8 +24,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-
+import { updateControlStateSideBar } from "@/store/slice/sidebar"
 import { useSelector } from "react-redux"
+import { dispatch } from "@/store/store"
+import { useEffect } from "react"
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
@@ -89,11 +90,18 @@ function SidebarProvider({
     },
     [setOpenProp, open]
   )
-
-  // Helper to toggle the sidebar.
-  const toggleSidebar = React.useCallback(() => {
-    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
-  }, [isMobile, setOpen, setOpenMobile])
+  
+   const stateSide=  useSelector((state: IRootState) => state.sidebar.state);
+   const toggleSidebar = React.useCallback(() => {
+    if (isMobile) {
+      setOpenMobile((prevOpen) => !prevOpen);
+      dispatch(updateControlStateSideBar({ key: "state", payload: !stateSide })); 
+    } else {
+      setOpen((!open))
+      dispatch(updateControlStateSideBar({ key: "state", payload: !stateSide }));
+    }
+  }, [isMobile, stateSide, setOpenMobile]);
+  
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {
@@ -113,7 +121,6 @@ function SidebarProvider({
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
-  const stateSide=  useSelector((state: IRootState) => state.sidebar.state);
   const state = open? "expanded" : "collapsed"
 
   const contextValue = React.useMemo<SidebarContextProps>(
@@ -128,7 +135,7 @@ function SidebarProvider({
     }),
     [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   )
-  console.log(open)
+
   return (
     <SidebarContext.Provider value={contextValue}>
       <TooltipProvider delayDuration={0}>
@@ -167,8 +174,15 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
-
-  if (collapsible === "none") {
+ 
+  React.useEffect(() => {
+    if (openMobile) {
+      dispatch(updateControlStateSideBar({ key: "state", payload: true }));
+    } else {
+      dispatch(updateControlStateSideBar({ key: "state", payload: false }));
+    }
+  }, [isMobile]);
+   if (collapsible === "none") {
     return (
       <div
         data-slot="sidebar"

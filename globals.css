@@ -16,6 +16,12 @@
   .icon{
     @apply text-blue-500  cursor-pointer
   }
+  .form{
+    @apply  w-full p-6 border border-solid rounded-md gap-4 flex flex-col bg-white
+  }
+  .divButtonForm{
+    @apply flex gap-4 w-[90%] flex-col-reverse justify-center items-center mx-auto mt-5
+  }
 }
 :root {
   --radius: 0.625rem;

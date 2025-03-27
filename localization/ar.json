@@ -1,14 +1,19 @@
 {
     "sidebar": {
-        "home": "الرئيسية",
-        "customer": "العملاء",
-        "product": "المنتجات",
-        "category": "الفئات",
-        "coupon": "الرمز الترويجي",
-        "order": "الطلبات",
-        "notification": "الإشعارات",
-        "profile": "الملف الشخصي",
-        "analysis": "تحليل"
+        "Home": "الرئيسية",
+        "Customer": "العملاء",
+        "Product": "المنتجات",
+        "Category": "الفئات",
+        "Coupon": "الرمز الترويجي",
+        "Order": "الطلبات",
+        "Notification": "الإشعارات",
+        "Profile": "الملف الشخصي",
+        "Analysis": "تحليل",
+        "Application":"تطبيق"
+    },
+    "topNav":{
+        "english":"الانكليزية",
+        "arabic":"العربية"
     },
     "sign": {
         "sign": "انشاء حساب",
