@@ -9,7 +9,7 @@
     "sidebar": {
         "Home": "الرئيسية",
         "Customer": "العملاء",
-        "Product": "المنتجات",
+        "Products": "المنتجات",
         "Category": "الفئات",
         "Coupon": "الرمز الترويجي",
         "Order": "الطلبات",
@@ -17,7 +17,8 @@
         "Profile": "الملف الشخصي",
         "Analysis": "تحليل",
         "Application":"تطبيق",
-        "Add-category":"إضافة فئة"
+        "Add-category":"إضافة فئة",
+        "Add-product":"إضافة منتج"
     },
     "topNav":{
         "english":"الانكليزية",
@@ -40,6 +41,10 @@
         "categoryName":"اسم الفئة",
         "url":"رابط الصورة",
         "photoCategory":"صورة الفئة"
+    },
+    "Products":{
+        "Products":"المنتجات",
+        "add_Product":"إضافة منتج"
     }
     
 

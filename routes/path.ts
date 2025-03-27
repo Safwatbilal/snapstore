@@ -1,3 +1,4 @@
+
 export const HOME_PATH = {
     HOME: "/",
 };
@@ -13,6 +14,7 @@ export const CATEGORY_PATH = {
 };
 export const PRODUCT_PATH = {
     PRODUCTS: "/products",
+    AddPRODUCT:'/products/add-product'
 };
 export const COUPON_PATH = {
     COUPON: "/coupons",

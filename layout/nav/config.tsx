@@ -28,7 +28,7 @@ export const appNav = [
         icon: ICONS.customer,
     },
     {
-        title: "sidebar.Product",
+        title: "sidebar.Products",
         pathName: PRODUCT_PATH.PRODUCTS,
         icon: ICONS.product,
     },

@@ -16,7 +16,7 @@ const AppSideBar:React.FunctionComponent<{
   const { lang } = useSelector((state: IRootState) => state.control);
   const {t}=useTranslation()
     return(
-        <Sidebar variant="floating" collapsible='icon' side={`${lang==='en'?'left':'right'}`} >
+        <Sidebar variant="floating" className="bg-[#F1F2F7]" collapsible='icon' side={`${lang==='en'?'left':'right'}`} >
           <SidebarContent >
             <SidebarGroup>
               <SideBarItems titleNav={t('sidebar.Application')} navListData={navListDataApp}></SideBarItems>

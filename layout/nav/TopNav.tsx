@@ -8,7 +8,6 @@ import { LogOut } from "lucide-react";
 import TooltipButton from "@/components/global/tooltipButton";
 import { dispatch } from "@/store/store";
 import { updateControlState } from "@/store/slice/control";
-import { getToken, logout } from "@/components/global/auth";
 import { useSelector } from "react-redux";
 const TopNav = () => {
   const {t}=useTranslation()
@@ -27,7 +26,7 @@ const TopNav = () => {
           {t('sign.sign')}
         </Button>
       </Link>}
-     {!isLogout&&
+      {!isLogout&&
       <TooltipButton icon={<LogOut/>} onClick={handleLogout} title="Logout" className="cursor-pointer"></TooltipButton>
      }</div>
   );
