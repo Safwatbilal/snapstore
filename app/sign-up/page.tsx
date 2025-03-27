@@ -37,7 +37,7 @@ const Page = () => {
     mutate(dateID,{
         onSuccess:(data)=>{
           toast.success('ss')
-           dispatch(updateControlState({ key: "isLogout", payload: false }));
+          dispatch(updateControlState({ key: "isLogout", payload: false }));
           localStorage.setItem('token',uniqueId)
           router.push(HOME_PATH.HOME)
         }

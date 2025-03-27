@@ -14,19 +14,22 @@ const TopNav = () => {
   const {t}=useTranslation()
   const handleLogout = () => {
     dispatch(updateControlState({ key: "isLogout", payload: true }));
+    localStorage.clear()
   };
-  const isLoggedOut = useSelector((state: RootState) => state.control.isLoggedOut);
-  console.log(isLoggedOut)
+  
+  const {isLogout} = useSelector((state: RootState) => state.control);
+  console.log(isLogout)
   return (
     <div className="flex gap-2 ">
       <SelectTopBar />
-      <Link href={SIGNUP_PATH.SIGNUP}>
+      {isLogout&& <Link href={SIGNUP_PATH.SIGNUP}>
         <Button variant='outline' className="button">
           {t('sign.sign')}
         </Button>
-      </Link>
-      <TooltipButton icon={<LogOut/>} onClick={handleLogout} title="Logout" ></TooltipButton>
-    </div>
+      </Link>}
+     {!isLogout&&
+      <TooltipButton icon={<LogOut/>} onClick={handleLogout} title="Logout" className="cursor-pointer"></TooltipButton>
+     }</div>
   );
 }
 

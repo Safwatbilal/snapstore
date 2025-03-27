@@ -23,13 +23,12 @@ import {
   }: TooltipButtonProps) => {
      return (
       <TooltipProvider delayDuration={100}>
-        <Tooltip>
+        <Tooltip >
           <TooltipTrigger onClick={onClick} className={cn(className)} aria-label="icon button">
             {icon}
           </TooltipTrigger>
-         
-              <TooltipContent>
-                <p className="text-xs text-main">{title}</p>
+              <TooltipContent className="bg-white">
+                <p className="text-xs text-black">{title}</p>
               </TooltipContent>
         
         </Tooltip>
