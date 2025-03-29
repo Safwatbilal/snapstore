@@ -1,10 +1,15 @@
 {
     "global":{
         "view_and_mange":"view and mange",
-        "add":"Add",
+        "add":"add",
+        "update":"update",
         "back":"Back",
         "options":"options",
-        "search":"search"
+        "search":"search",
+        "add_done":"Added successfully",
+        "update_done":"Updated successfully",
+        "update_description":"Make changes to your category here. Click save when youre done",
+        "add_description":"Add new category here.Click save when youre done"
     },
     "sidebar":{
         "Home":"Home",
@@ -50,6 +55,11 @@
     },
     "Products":{
         "Products":"Products",
-        "add_Product":"add product"
+        "add_Product":"add product",
+        "productName":"Product Name",
+        "description":"Description",
+        "price":"Price",
+        "Category":"Category",
+        "ImageUrl":"ImageUrl"
     }
 }

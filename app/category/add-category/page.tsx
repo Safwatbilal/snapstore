@@ -1,8 +1,12 @@
 'use client'
 import React from 'react'
+
+
+import { Button } from "@/components/ui/button"
+
 import PageTitle from '@/components/global/PageTitle'
 import queries from '@/api/category/query'
-import { Button } from '@/components/ui/button'
+
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { categotyValidation, defaultCategoryAction, ICategoryAction } from '@/components/validation/category'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -34,9 +38,13 @@ const AddCategory = () => {
         }
       })
   }
+  const SHEET_SIDES = ["top", "right", "bottom", "left"] as const
+ 
+type SheetSide = (typeof SHEET_SIDES)[number]
   return (
     
     <div >
+
         <PageTitle title={t('category.add_category')} subTitle={''} buttonTitle='' path={''}/>
         <form className='pt-6' onSubmit={handleSubmit(onSubmit)}
         >

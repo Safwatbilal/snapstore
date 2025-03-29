@@ -19,7 +19,7 @@ const TopNav = () => {
   const {isLogout} = useSelector((state: RootState) => state.control);
   console.log(isLogout)
   return (
-    <div className="flex gap-2 ">
+    <div className="flex gap-2  ">
       <SelectTopBar />
       {isLogout&& <Link href={SIGNUP_PATH.SIGNUP}>
         <Button variant='outline' className="button">

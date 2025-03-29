@@ -3,8 +3,14 @@
         "view_and_mange":"عرض و ادارة",
         "add":"إضافة",
         "back":"رجوع",
+        "update":"تحديث",
         "options":"خيارات",
-        "search":"بحث"
+        "search":"بحث",
+        "add_done": "تمت الإضافة بنجاح",
+        "update_done": "تم التعديل بنجاح",
+        "update_description": "قم بإجراء التعديلات على الفئة هنا. اضغط حفظ عند الانتهاء.",
+        "add_description": "أضف فئة جديدة هنا. اضغط حفظ عند الانتهاء."
+
     },
     "sidebar": {
         "Home": "الرئيسية",
@@ -36,7 +42,8 @@
         "password": "كلمة المرور"
     },
     "category":{
-        "category":"الفئات",
+        "categorys":"الفئات",
+        "category":"فئة",
         "add_category":"إضافة فئة",
         "categoryName":"اسم الفئة",
         "url":"رابط الصورة",

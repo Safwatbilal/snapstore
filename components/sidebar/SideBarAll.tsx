@@ -32,10 +32,10 @@ const SideBarAll: React.FunctionComponent<{ children: any }> = ({ children }) =>
     const paddingStyle = lang === 'en' ? { paddingLeft: sidebarWidth } : { paddingRight: sidebarWidth };
 
     return (
-        <SidebarProvider>
+        <SidebarProvider >
             <AppSidebar navListDataAnylist={anylistNav} navListDataApp={appNav} />
-            <main className="flex flex-col min-h-screen ">
-                <div className="flex  items-center w-full justify-between p-2 h-12 text-black bg-[#F1F2F7] fixed right-0" style={paddingStyle}>
+            <main className="flex flex-col min-h-screen  ">
+                <div className="flex  items-center w-full justify-between p-2 h-12 text-black bg-[#F1F2F7] fixed right-0 z-5 " style={paddingStyle}>
                     <div style={marginStyle} className="flex items-center  gap-1">
                         <SidebarTrigger className="cursor-pointer w-12 h-12" onClick={handleChangeStateSideBar} />
                     <Breadcrumb data={breadcrumbData} /> 
