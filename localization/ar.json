@@ -49,10 +49,15 @@
         "url":"رابط الصورة",
         "photoCategory":"صورة الفئة"
     },
-    "Products":{
-        "Products":"المنتجات",
-        "add_Product":"إضافة منتج"
-    }
+  "products": {
+    "products": "المنتجات",
+    "add_product": "إضافة منتج",
+    "productName": "اسم المنتج",
+    "description": "الوصف",
+    "price": "السعر",
+    "category": "الفئة",
+    "imageUrl": "رابط الصورة"
+}
     
 
 }

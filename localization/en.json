@@ -53,13 +53,16 @@
         "url":"url",
         "photoCategory":"Category Photo"
     },
-    "Products":{
-        "Products":"Products",
-        "add_Product":"add product",
+    "products":{
+        "products":"Products",
+        "add_product":"add product",
         "productName":"Product Name",
         "description":"Description",
         "price":"Price",
-        "Category":"Category",
-        "ImageUrl":"ImageUrl"
+        "category":"Category",
+        "imageUrl":"ImageUrl"
+    },
+    "reviews":{
+        "add_review":"add review"
     }
 }

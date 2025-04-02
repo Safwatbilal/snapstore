@@ -1,4 +1,6 @@
+'use client'
 import * as React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -7,51 +9,35 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
+import TooltipButton from './tooltipButton';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Skeleton } from '@mui/material';
-import queries from '@/api/category/query';
+import { Edit, Eye, ShoppingCart } from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import DetailsProduct from './DetailsProduct';
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme }) => ({
+const ExpandMore = styled(IconButton)(({ theme }) => ({
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }),
-  variants: [
-    {
-      props: ({ expand }) => !expand,
-      style: {
-        transform: 'rotate(0deg)',
-      },
-    },
-    {
-      props: ({ expand }) => !!expand,
-      style: {
-        transform: 'rotate(180deg)',
-      },
-    },
-  ],
 }));
 
 interface CardsProps {
   productName?: string;
-  category?: string;
+  categoryName?: string;
   description?: string;
   price?: number;
   imageUrl?: string;
   isLoading: boolean;
+  productId?: string;
+  onEdit?: (id: string) => void;
+  userId: string;
 }
 
 const Cards: React.FunctionComponent<CardsProps> = ({
@@ -59,17 +45,43 @@ const Cards: React.FunctionComponent<CardsProps> = ({
   description,
   price,
   imageUrl,
-  category,
+  categoryName,
   isLoading,
+  productId,
+  userId,
+  onEdit
 }) => {
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const [expandedProductId, setExpandedProductId] = React.useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentProductId = searchParams.get('productId');
+
+  React.useEffect(() => {
+    if (currentProductId === productId) {
+      setIsDialogOpen(true);
+    }
+  }, [currentProductId, productId]);
+
+  const handleExpandClick = (id: string | undefined) => {
+    if (!id) return;
+    setExpandedProductId(prevId => (prevId === id ? null : id));
   };
 
-  const { data } = queries.getCategory(category);
+  const userToken = typeof window !== "undefined" ? localStorage.getItem('token') : null;
+
+  const handleDialogOpen = () => {
+    router.push(`?productId=${productId}`, { scroll: false });
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    router.push('/', { scroll: false });
+    setIsDialogOpen(false);
+  };
+
   return (
-    <Card sx={{ maxWidth: 400 }}>
+    <Card sx={{ maxWidth: 500 }}>
       {isLoading ? (
         <>
           <div className='flex justify-center items-center'>
@@ -84,54 +96,47 @@ const Cards: React.FunctionComponent<CardsProps> = ({
       ) : (
         <>
           <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
-                {productName?.charAt(0)}
-              </Avatar>
-            }
+            avatar={<Avatar sx={{ bgcolor: blue[500] }}>{productName?.charAt(0)}</Avatar>}
             action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
+              <>
+                {userId === userToken && (
+                  <TooltipButton onClick={() => onEdit?.(productId!)} icon={<IconButton><Edit size={20} /></IconButton>} title='Edit' />
+                )}
+                <Dialog open={isDialogOpen} onOpenChange={(open) => open ? handleDialogOpen() : handleDialogClose()}>
+                  <DialogTrigger>
+                    <TooltipButton icon={<IconButton><Eye size={20} /></IconButton>} title='Show' />
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DetailsProduct id={productId} />
+                  </DialogContent>
+                </Dialog>
+              </>
             }
             title={productName}
             subheader={price}
           />
-          <CardMedia component="img" className="h-[250px] !w-[400px]" image={imageUrl} alt="Paella dish" />
+          <CardMedia component="img" className="h-[250px] !w-[400px]" image={imageUrl} alt={productName} />
           <CardContent>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              {description}
-            </Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              {data?.categoryName}
-            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>{categoryName}</Typography>
           </CardContent>
+          <Collapse in={expandedProductId === productId} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>{description}</Typography>
+            </CardContent>
+          </Collapse>
+          <CardActions disableSpacing>
+            <TooltipButton icon={<IconButton><FavoriteIcon /></IconButton>} title='Add to favorites' />
+            <TooltipButton icon={<IconButton><ShareIcon /></IconButton>} title='Share Product' />
+            <TooltipButton icon={<IconButton><ShoppingCart /></IconButton>} title='Add to cart' />
+            <ExpandMore 
+              onClick={() => handleExpandClick(productId)} 
+              sx={{ transform: expandedProductId === productId ? 'rotate(180deg)' : 'rotate(0deg)' }} 
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
         </>
       )}
-      {isLoading && (
-        <Skeleton variant="text" width="40%" height={16} sx={{ margin: "5px" }} />
-      )}
-      {!isLoading && (
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-      )}
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        
-      </Collapse>
     </Card>
   );
 };

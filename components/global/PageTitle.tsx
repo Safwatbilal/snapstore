@@ -8,9 +8,8 @@ const PageTitle: React.FunctionComponent<{
     title?: string,
     subTitle?: string,
     buttonTitle?: string,
-    path?: string,
     onButtonClick?: () => void
-}> = ({ title, subTitle, buttonTitle, path, onButtonClick }) => {
+}> = ({ title, subTitle, buttonTitle, onButtonClick }) => {
   return (
     <>
       <div className="flex justify-between items-center">
@@ -18,14 +17,15 @@ const PageTitle: React.FunctionComponent<{
           <Typography variant={'h6'} size={'medium'}>{title}</Typography>
           <Typography className='colorText text-[15px]' size={'semibold'}>{subTitle}</Typography>
         </div>
-        {buttonTitle !== '' && (
+        {buttonTitle&&
           <div>
             <Button className='buttonSubmit' onClick={onButtonClick}>
               <Plus className='border' />
               {buttonTitle}
             </Button>
           </div>
-        )}
+  }
+      
       </div>
       <Separator />
     </>

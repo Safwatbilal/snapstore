@@ -9,6 +9,8 @@ import { TableCell, TableRow } from '@/components/ui/table'
 import { useSelector } from 'react-redux'
 import CategoryActions from '@/components/category/category-actions'
 import { Button } from '@mui/material'
+import { dispatch } from '@/store/store'
+import { updateControlState } from '@/store/slice/control'
 
 const Category = () => {
   const id = localStorage.getItem('token')
@@ -16,16 +18,15 @@ const Category = () => {
   const { search } = useSelector((state: IRootState) => state.control);
   
   const { data: categories, isLoading } = queries.getAllCategory(id, search);
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [idCategory, setIdCategory] = useState<string>()
-
+console.log(categories)
   const handelId = (value: string) => {
       setIdCategory(value)
-      setIsSheetOpen(true)
+      dispatch(updateControlState({key:'openSheet',payload:true}))
   }
   const handleOpenSheet=()=>{
     setIdCategory('')
-    setIsSheetOpen(true)
+    dispatch(updateControlState({key:'openSheet',payload:true}))
   }
 
   const baseColumns = [
@@ -40,7 +41,6 @@ const Category = () => {
         title={t('category.category')} 
         subTitle={`${t('global.view_and_mange')} ${t('category.category')}`} 
         buttonTitle={t('category.add_category')} 
-        path={undefined} 
         onButtonClick={ handleOpenSheet} 
       />
 
@@ -66,7 +66,7 @@ const Category = () => {
           </TableRow>
         ))}
       </Table>
-      <CategoryActions  id={idCategory} isOpen={isSheetOpen} setIsOpen={setIsSheetOpen} />
+      <CategoryActions  id={idCategory}  />
     </>
   )
 }

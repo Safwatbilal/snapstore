@@ -15,11 +15,16 @@ import RHFTextField from '../hook-form/RHFTextFiled'
 import { useRouter } from 'next/navigation'
 import { ICategoryForm } from '@/api/category/type'
 import Sheets from '../global/Sheet'
-const CategoryActions: React.FC<{ isOpen: boolean, setIsOpen: (value: boolean) => void ,id:string}> = ({ isOpen, setIsOpen,id }) => {
+import { updateControlState } from '@/store/slice/control'
+import { dispatch } from '@/store/store'
+import { useSelector } from 'react-redux'
+const CategoryActions: React.FC<{ id:string}> = ({id }) => {
     const queryClient=useQueryClient()
     const {mutate}=queries.CategoryActions(id)
+    const { openSheet} = useSelector((state: IRootState) => state.control);
     const {data:categoryDetails,isLoading}=queries.getCategory(id);
     const {t}=useTranslation()
+    console.log(id)
     const {
         handleSubmit,
         reset,
@@ -30,6 +35,7 @@ const CategoryActions: React.FC<{ isOpen: boolean, setIsOpen: (value: boolean) =
         resolver:yupResolver(categotyValidation())as unknown as Resolver<ICategoryAction>,
         values: categoryValue(categoryDetails as ICategoryForm) 
     })
+
     const onSubmit:SubmitHandler<ICategoryAction>=(data:ICategoryAction)=>{
         const dateID={
             ...data,
@@ -39,19 +45,19 @@ const CategoryActions: React.FC<{ isOpen: boolean, setIsOpen: (value: boolean) =
             onSuccess:(data)=>{
                 toast.success(`${id?t('global.update_done'):t('global.add_done')}`)
                 reset()
-                setIsOpen(false)
+               dispatch( updateControlState({key:'openSheet',payload:false}))
                 queryClient.invalidateQueries({ queryKey: ['category'] });
             }
         })
     }
     useEffect(() => {
-        if (!isOpen) {
+        if (!openSheet) {
             reset(defaultCategoryAction)
         }
-    }, [isOpen, reset])
+    }, [openSheet, reset])
     return (
         
-    <Sheets isOpen={isOpen} setIsOpen={setIsOpen} title={`${id?t('global.update'):t('global.add')} ${t('category.category')}`}  description={id?t('global.update_description'):t('global.add_description')}>
+    <Sheets title={`${id?t('global.update'):t('global.add')} ${t('category.category')}`}  description={id?t('global.update_description'):t('global.add_description')}>
         <form className='pt-6' onSubmit={handleSubmit(onSubmit)}
         >
             <div className="form">

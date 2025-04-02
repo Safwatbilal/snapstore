@@ -14,7 +14,9 @@ import { HOME_PATH } from '@/routes/path'
 import {toast} from 'sonner'
 import { dispatch } from '@/store/store';
 import { updateControlState } from '@/store/slice/control';
+import { useQueryClient } from '@tanstack/react-query';
 const Page = () => {
+    const queryClient=useQueryClient()
   const uniqueId = uuidv4();
   const router=useRouter()
   const { t } = useTranslation()
@@ -39,6 +41,8 @@ const Page = () => {
           toast.success('ss')
           dispatch(updateControlState({ key: "isLogout", payload: false }));
           localStorage.setItem('token',uniqueId)
+          
+          queryClient.invalidateQueries({ queryKey: ['users'] });
           router.push(HOME_PATH.HOME)
         }
       })

@@ -7,13 +7,15 @@ interface initialStateProps {
   tempId?: string;
   lang: ILanguages;
   isLogout:boolean,
-  search:string
+  search:string,
+  openSheet:boolean
 }
 const storedLogout = localStorage.getItem("token");
 const initialState: initialStateProps = {
   lang: "en",
   isLogout: storedLogout===null ? true : false,
-  search:''
+  search:'',
+  openSheet:false
 };
 
 const slice = createSlice({

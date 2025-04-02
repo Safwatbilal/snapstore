@@ -8,4 +8,5 @@ export type ISignUpForm={
     lastName:string;
     firstName:string;
     phoneNumber:string;
+    id:string;
 }

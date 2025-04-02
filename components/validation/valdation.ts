@@ -17,3 +17,15 @@ export const passwordValidation = (isEdit: boolean) =>
             : false;
         },
     });
+    export const reactSelectValidation = () =>
+        object()
+          .shape({
+            categoryName: string(),
+            categoryId: string(),
+          })
+          .test({
+            message: i18n.t("form.field_is_required"),
+            test: ({ categoryId }) => {
+              return !!categoryId;
+            },
+          });
