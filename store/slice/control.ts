@@ -3,19 +3,23 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type ILanguages = "ar" | "en";
 export type ILogout=false|true
+export type ITheme="light"|"dark"
 interface initialStateProps {
   tempId?: string;
   lang: ILanguages;
   isLogout:boolean,
   search:string,
-  openSheet:boolean
+  openSheet:boolean,
+  theme:ITheme
 }
 const storedLogout = localStorage.getItem("token");
+const storedTheme = (localStorage.getItem("theme") as ITheme) || "light";
 const initialState: initialStateProps = {
   lang: "en",
   isLogout: storedLogout===null ? true : false,
   search:'',
-  openSheet:false
+  openSheet:false,
+  theme:storedTheme
 };
 
 const slice = createSlice({

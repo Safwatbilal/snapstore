@@ -1,5 +1,8 @@
 {
     "global":{
+        "add_to_favorites":"add to favorites",
+        "share_product":"share this product",
+        "add_to_cart":"add to cart",
         "view_and_mange":"view and mange",
         "add":"add",
         "update":"update",

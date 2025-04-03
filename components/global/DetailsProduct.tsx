@@ -58,6 +58,7 @@ const DetailsProduct:React.FC<{id:string}> = ({id}) => {
         })
     }
     const commentInput=watch('comment')
+    const {t}=useTranslation()
     return (
         <>
             <DialogHeader>
@@ -116,26 +117,19 @@ const DetailsProduct:React.FC<{id:string}> = ({id}) => {
                             />
                             <IconButton
                             type="submit"
-                            className="!absolute top-[13px] right-0 w-[46px]"
+                            className="!absolute top-[0px] right-0 w-[46px]  "
                             disabled={!commentInput?.trim()}
                             >
-                            <ChevronRight className="w-5 h-5" />
+                            <ChevronRight size={20} className=" dark:text-white "   />
                             </IconButton>
                         </div>
                         </form>
 
                         <div className="flex gap-2">
-                            <TooltipButton icon={    <IconButton aria-label="add to favorites" >
-                                <FavoriteIcon />
-                            </IconButton>
-                        } title='add to favorites'></TooltipButton>
-                            <TooltipButton icon={  <IconButton aria-label="share">
-                                <ShareIcon />
-                            </IconButton>} title='Share Product'></TooltipButton>
-                            <TooltipButton icon={   <IconButton aria-label="add to cart">
-                            <ShoppingCart  />
-                            </IconButton>} title='add to cart'></TooltipButton>
-                
+                        <TooltipButton  icon={<IconButton><FavoriteIcon  className='dark:text-white'/></IconButton>} title={t('global.add_to_favorites')} />
+            <TooltipButton icon={<IconButton><ShareIcon className='dark:text-white'/></IconButton>} title={t('global.share_product')} />
+            <TooltipButton icon={<IconButton><ShoppingCart className='dark:text-white'/></IconButton>} title={t('global.add_to_cart')} />
+       
  
                         </div>
 

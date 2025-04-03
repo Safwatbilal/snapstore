@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-const typographyVariants = cva("text-gray-900 leading-5", {
+const typographyVariants = cva("leading-5", {
   variants: {
     variant: {
       h1: "text-7xl", // display-2x

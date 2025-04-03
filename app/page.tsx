@@ -8,14 +8,14 @@ import Products from '@/components/global/Products';
 import { useSelector } from 'react-redux';
 export default function Home() {
   const { t } = useTranslation();
-  const { search } = useSelector((state: IRootState) => state.control);
-  const { data:products, isLoading } = queries.getAllProducts('0',search);
-  
+  const { search,theme } = useSelector((state: IRootState) => state.control);
+  const { data:products=[], isLoading } = queries.getAllProducts('0',search);
+  console.log(theme)
   return (
     <>
-      <PageTitle title={t('sidebar.Home')} />
+      <PageTitle title={t('sidebar.Home')}  />
       <SearchInput />
-        <Products products={products} isLoading={isLoading} />
+      <Products products={products} isLoading={isLoading} />
     </>
   );
 }

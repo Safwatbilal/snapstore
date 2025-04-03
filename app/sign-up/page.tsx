@@ -49,20 +49,20 @@ const Page = () => {
   }
 
   return (
-    <div className='p-6'>
-      <PageTitle title={t('sign.sign')} subTitle={t('sign.create')} buttonTitle='' />
+    <div className='p-6 flex  justify-center  '>
         <form 
           onSubmit={handleSubmit(onSubmit)}
-          className='pt-6'
+          className='form w-[500px]'
           >
+      <PageTitle title={t('sign.sign')} subTitle={t('sign.create')} buttonTitle='' />
           
-            <div className="form">
+            <div className="">
                 <RHFTextField
                   name='userName'
                   type='text'
                   control={control}
                   label='user.userName'
-                  placeholder='user.userName'
+                  placeholder='e.g., john_doe'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
@@ -70,7 +70,7 @@ const Page = () => {
                   type='text'
                   control={control}
                   label='user.firstName'
-                  placeholder='user.firstName'
+                  placeholder='e.g., John'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
@@ -78,7 +78,7 @@ const Page = () => {
                   type='text'
                   control={control}
                   label='user.lastName'
-                  placeholder='user.lastName'
+                  placeholder='e.g., Doe'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
@@ -86,7 +86,7 @@ const Page = () => {
                   type='number'
                   control={control}
                   label='user.phoneNumber'
-                  placeholder='user.phoneNumber'
+                  placeholder='e.g., +1 234 567 890'
                   isLoading={false}
                 ></RHFTextField>
                 <RHFTextField
@@ -95,7 +95,7 @@ const Page = () => {
                   type='password'
                   control={control}
                   label='user.password'
-                  placeholder='user.password'
+                  placeholder='******'
                   isLoading={false}
                 ></RHFTextField>
             </div>

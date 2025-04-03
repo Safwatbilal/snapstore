@@ -16,7 +16,7 @@ const RHFInputLabel:React.FunctionComponent<RHFInputLabel>=({
     return(
         <div className={cn("flex justify-between mb-3", className)}>
         <div className="flex items-center  gap-0.5">
-            <Label className="text-gray-700  inline-block">
+            <Label className="text-gray-500  inline-block">
                 {(t(label))}
             </Label>
         </div>

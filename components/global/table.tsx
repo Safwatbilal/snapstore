@@ -28,7 +28,7 @@ const Table=({
     return(
         <div className="">
             <SearchInput></SearchInput>
-            <TableContainer className="overflow-hidden rounded-radius_md bg-[#FAFAFA] ">
+            <TableContainer className="overflow-hidden rounded-radius_md bg-[#FAFAFA] dark:bg-[#171717] ">
                 <TableHeader className=" bg-blue-500 text-white">
                 <TableRow className="bg-blue-500 hover:bg-blue-400">
                     {columns.map(({ className, title }) => (

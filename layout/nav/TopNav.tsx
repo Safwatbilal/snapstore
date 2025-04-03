@@ -1,3 +1,4 @@
+'use client'
 import SelectTopBar from "@/components/global/Select";
 import React from 'react';
 import { Button } from "@/components/ui/button";
@@ -9,8 +10,12 @@ import TooltipButton from "@/components/global/tooltipButton";
 import { dispatch } from "@/store/store";
 import { updateControlState } from "@/store/slice/control";
 import { useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
+import { DrawerDemo } from "@/components/global/Drawer";
 const TopNav = () => {
   const {t}=useTranslation()
+  const path=usePathname()
+  const isSignUp=path!=='/sign-up'
   const handleLogout = () => {
     dispatch(updateControlState({ key: "isLogout", payload: true }));
     localStorage.clear()
@@ -21,13 +26,16 @@ const TopNav = () => {
   return (
     <div className="flex gap-2  ">
       <SelectTopBar />
-      {isLogout&& <Link href={SIGNUP_PATH.SIGNUP}>
+      {isLogout&& isSignUp&&<Link href={SIGNUP_PATH.SIGNUP}>
         <Button variant='outline' className="button">
           {t('sign.sign')}
         </Button>
       </Link>}
       {!isLogout&&
+      <>
+      <DrawerDemo></DrawerDemo>
       <TooltipButton icon={<LogOut/>} onClick={handleLogout} title="Logout" className="cursor-pointer"></TooltipButton>
+      </>
      }</div>
   );
 }

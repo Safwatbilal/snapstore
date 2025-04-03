@@ -3,7 +3,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import control from './slice/control'
 import sidebar from './slice/sidebar'
-
+import cart from './slice/cart'
 import { store } from "./store";
 const rootPersistConfig = {
     key: "root",
@@ -24,9 +24,16 @@ const controlPersistConfigState = {
     keyPrefix: "redux-",
     whitelist: ["permissions","state"],
   };
+const cartPersistConfigState = {
+    key: "cart",
+    storage,
+    keyPrefix: "redux-",
+    whitelist: ["permissions","state"],
+  };
 const rootReducer=combineReducers({
     control:persistReducer(controlPersistConfig,control),
     sidebar:persistReducer(controlPersistConfigState,sidebar),
+    cart:persistReducer(cartPersistConfigState,cart)
 })
 export {rootReducer,rootPersistConfig}
 export type IRootState = ReturnType<typeof rootReducer>;

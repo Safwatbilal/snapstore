@@ -11,6 +11,7 @@ import CategoryActions from '@/components/category/category-actions'
 import { Button } from '@mui/material'
 import { dispatch } from '@/store/store'
 import { updateControlState } from '@/store/slice/control'
+import { Edit } from 'lucide-react'
 
 const Category = () => {
   const id = localStorage.getItem('token')
@@ -61,7 +62,9 @@ console.log(categories)
               />
             </TableCell>
             <TableCell>
-              <Button onClick={()=>handelId(id)}>ss</Button>
+              <Button onClick={()=>handelId(id)}>
+                <Edit ></Edit>
+              </Button>
             </TableCell>
           </TableRow>
         ))}
