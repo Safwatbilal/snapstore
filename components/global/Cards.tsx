@@ -24,12 +24,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { dispatch } from '@/store/store';
 import { addToCart } from '@/store/slice/cart';
-const ExpandMore = styled(IconButton)(({ theme }) => ({
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import ImageWithCheck from './ImageWithCheck';
+
 
 interface CardsProps {
   productName?: string;
@@ -58,7 +54,9 @@ const Cards: React.FunctionComponent<CardsProps> = ({
   const item={productId,productName,price,imageUrl,quantity:1}
     dispatch(addToCart(item))
   }
-  const [expandedProductId, setExpandedProductId] = React.useState<string | null>(null);
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#A133FF", "#33FFF5", "#FF8C33"];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -69,12 +67,6 @@ const Cards: React.FunctionComponent<CardsProps> = ({
       setIsDialogOpen(true);
     }
   }, [currentProductId, productId]);
-
-  const handleExpandClick = (id: string | undefined) => {
-    if (!id) return;
-    setExpandedProductId(prevId => (prevId === id ? null : id));
-  };
-
   const userToken = typeof window !== "undefined" ? localStorage.getItem('token') : null;
   const { theme } = useSelector((state: IRootState) => state.control);
   const handleDialogOpen = () => {
@@ -151,54 +143,42 @@ const Cards: React.FunctionComponent<CardsProps> = ({
       ) : (
         <>
      <CardHeader
-  sx={{
-    '& .MuiCardHeader-title': {
-      color: theme === 'light' ? '#09090B' : '#FFFFFF', // لون العنوان
-    },
-    '& .MuiCardHeader-subheader': {
-      color: theme === 'light' ? '#52525B' : '#D0D5DD', // لون الـ subheader
-    },
-  }}
-  avatar={<Avatar sx={{ bgcolor: blue[500] }}>{productName?.charAt(0)}</Avatar>}
-  action={
-    <>
-      {userId === userToken && (
-        <TooltipButton onClick={() => onEdit?.(productId!)} icon={<IconButton><Edit className='dark:text-white' size={20} /></IconButton>} title='Edit' />
-      )}
-      <Dialog open={isDialogOpen} onOpenChange={(open) => open ? handleDialogOpen() : handleDialogClose()}>
-        <DialogTrigger>
-          <TooltipButton icon={<IconButton><Eye className='dark:text-white' size={20} /></IconButton>} title='Show' />
-        </DialogTrigger>
-        <DialogContent>
-          <DetailsProduct id={productId} />
-        </DialogContent>
-      </Dialog>
-    </>
-  }
-  title={productName}
-  subheader={price}
-/>
+        sx={{
+          '& .MuiCardHeader-title': {
+            color: theme === 'light' ? '#09090B' : '#FFFFFF', 
+          },
+          '& .MuiCardHeader-subheader': {
+            color: theme === 'light' ? '#52525B' : '#D0D5DD', 
+          },
+        }}
+        avatar={<Avatar sx={{ bgcolor: randomColor }}>{productName?.charAt(0)}</Avatar>}
+        action={
+          <>
+            {userId === userToken && (
+              <TooltipButton onClick={() => onEdit?.(productId!)} icon={<IconButton><Edit className='dark:text-white' size={20} /></IconButton>} title='Edit' />
+            )}
+            <Dialog open={isDialogOpen} onOpenChange={(open) => open ? handleDialogOpen() : handleDialogClose()}>
+              <DialogTrigger>
+                <TooltipButton icon={<IconButton><Eye className='dark:text-white' size={20} /></IconButton>} title='Show' />
+              </DialogTrigger>
+              <DialogContent>
+                <DetailsProduct id={productId} />
+              </DialogContent>
+            </Dialog>
+          </>
+        }
+      title={productName}
+      subheader={price}
+      />
 
-          <CardMedia component="img" className="h-[250px] !w-[400px]" image={imageUrl} alt={productName} />
+        <ImageWithCheck src={imageUrl} alt={productName} borderRadius={false} width='400px' height='200px'></ImageWithCheck>
           <CardContent>
             <Typography variant="body2" className='dark:text-white'>{categoryName}</Typography>
           </CardContent>
-          <Collapse in={expandedProductId === productId} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography variant="body2" className='dark:text-white'>{description}</Typography>
-            </CardContent>
-          </Collapse>
-          <CardActions disableSpacing >
+          <CardActions disableSpacing className='flex justify-around'>
             <TooltipButton  icon={<IconButton><FavoriteIcon  className='dark:text-white'/></IconButton>} title={t('global.add_to_favorites')} />
             <TooltipButton icon={<IconButton><ShareIcon className='dark:text-white'/></IconButton>} title={t('global.share_product')} />
             <TooltipButton icon={<IconButton><ShoppingCart onClick={()=>handleAddToCart()} className='dark:text-white'/></IconButton>} title={t('global.add_to_cart')} />
-            <ExpandMore 
-              onClick={() => handleExpandClick(productId)} 
-              
-              sx={{ transform: expandedProductId === productId ? 'rotate(180deg)' : 'rotate(0deg)' }} 
-            >
-              <ExpandMoreIcon className='dark:text-white' />
-            </ExpandMore>
           </CardActions>
         </>
       )}

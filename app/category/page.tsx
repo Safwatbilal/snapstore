@@ -12,6 +12,7 @@ import { Button } from '@mui/material'
 import { dispatch } from '@/store/store'
 import { updateControlState } from '@/store/slice/control'
 import { Edit } from 'lucide-react'
+import ImageWithCheck from '@/components/global/ImageWithCheck'
 
 const Category = () => {
   const id = localStorage.getItem('token')
@@ -50,16 +51,8 @@ console.log(categories)
           <TableRow key={index}>
             <TableCell>{index + 1}</TableCell>
             <TableCell>{categoryName}</TableCell>
-            <TableCell>
-              <img 
-                src={url} 
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "9999px",
-                  objectFit: "cover",
-                }}
-              />
+            <TableCell >
+              <ImageWithCheck src={url} alt={categoryName} borderRadius={true} width='40px' height='40px'></ImageWithCheck>
             </TableCell>
             <TableCell>
               <Button onClick={()=>handelId(id)}>
