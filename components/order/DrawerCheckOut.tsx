@@ -11,24 +11,25 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { IOrderAction } from "../validation/order";
+import { IOrderAction, orderValidation } from "../validation/order";
 import queries from "@/api/order/query";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { dispatch } from "@/store/store";
 import { clearCart } from "@/store/slice/cart";
-
+import { yupResolver } from "@hookform/resolvers/yup";
 const DrawerCheckOut: React.FC<{ onClick: (id: boolean) => void }> = ({ onClick }) => {
-  const { control, handleSubmit, reset } = useForm<IOrderAction>({});
+  const { control, handleSubmit, reset } = useForm<IOrderAction>({
+    resolver:yupResolver(orderValidation())as unknown as Resolver<IOrderAction>
+  });
   const { cartArray } = useSelector((state: IRootState) => state.cart)
   const { mutate } = queries.addOrder();
-
   const onSubmit: SubmitHandler<IOrderAction> = (data: IOrderAction) => {
     const dataId={
       ...data,
       cartArray
     }
-    mutate(data, {
+    mutate(dataId, {
       onSuccess: () => {
         toast.success("Order submitted successfully!");
         reset(); // Reset the form after successful submission

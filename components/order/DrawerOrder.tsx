@@ -30,6 +30,7 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
             dispatch(removeFromCart(productId))
         }
         const { cartArray } = useSelector((state: IRootState) => state.cart)
+        console.log(cartArray.length)
     return (
         <>
             <DrawerTrigger asChild>
@@ -39,7 +40,7 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
                     </Button>
                 </DrawerTrigger>
 
-                <DrawerContent className="overflow-auto z-50">
+                <DrawerContent className="overflow-auto z-50 no-after">
                     <div className="mx-auto w-full max-w-sm">
                         <DrawerHeader>
                             <DrawerTitle>Shopping Cart</DrawerTitle>
@@ -90,7 +91,7 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
                         </div>
 
                         <DrawerFooter>
-                            <Button className="w-full" onClick={onClick}>Proceed to Checkout</Button>
+                            <Button className="w-full" onClick={onClick} disabled={cartArray.length===0}>Proceed to Checkout</Button>
                             <DrawerClose asChild>
                                 <Button variant="outline" className="w-full">Close</Button>
                             </DrawerClose>
