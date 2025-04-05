@@ -48,11 +48,11 @@ console.log(categories)
 
       <Table columns={baseColumns} isLoading={isLoading}>
         {categories?.map(({ categoryName, url,id }, index) => (
-          <TableRow key={index}>
+          <TableRow key={index} className='hover:bg-blue-200'>
             <TableCell>{index + 1}</TableCell>
             <TableCell>{categoryName}</TableCell>
-            <TableCell >
-              <ImageWithCheck src={url} alt={categoryName} borderRadius={true} width='40px' height='40px'></ImageWithCheck>
+            <TableCell  >
+              <ImageWithCheck src={url} alt={categoryName} borderRadius={true} width='30px' height='30px'></ImageWithCheck>
             </TableCell>
             <TableCell>
               <Button onClick={()=>handelId(id)}>

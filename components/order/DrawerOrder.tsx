@@ -22,10 +22,13 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
             price: number
             imageUrl: string
             quantity: number
+            state:string
+            timeOrder:string
+            
         }) => {
             dispatch(addToCart(item))
         }
-    
+    const now = new Date();
         const handleRemoveCart = ({ productId }: { productId: string }) => {
             dispatch(removeFromCart(productId))
         }
@@ -80,7 +83,7 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
                                         <Button
                                             variant="outline"
                                             size="icon"
-                                            onClick={() => handleAddToCart({ ...item, quantity: 1 })}
+                                            onClick={() => handleAddToCart({ ...item, quantity: 1 ,state:'pending',timeOrder:now})}
                                             className="h-8 w-8 rounded-full cursor-pointer"
                                         >
                                             <Plus />

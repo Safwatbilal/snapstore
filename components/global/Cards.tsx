@@ -51,7 +51,7 @@ const Cards: React.FunctionComponent<CardsProps> = ({
   onEdit
 }) => {
   const handleAddToCart=()=>{
-  const item={productId,productName,price,imageUrl,quantity:1}
+  const item={productId,productName,price,imageUrl,quantity:1,state:'pending',timeOrder}
     dispatch(addToCart(item))
   }
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#A133FF", "#33FFF5", "#FF8C33"];
@@ -67,6 +67,7 @@ const Cards: React.FunctionComponent<CardsProps> = ({
       setIsDialogOpen(true);
     }
   }, [currentProductId, productId]);
+  const timeOrder = new Date();
   const userToken = typeof window !== "undefined" ? localStorage.getItem('token') : null;
   const { theme } = useSelector((state: IRootState) => state.control);
   const handleDialogOpen = () => {
@@ -158,8 +159,12 @@ const Cards: React.FunctionComponent<CardsProps> = ({
               <TooltipButton onClick={() => onEdit?.(productId!)} icon={<IconButton><Edit className='dark:text-white' size={20} /></IconButton>} title='Edit' />
             )}
             <Dialog open={isDialogOpen} onOpenChange={(open) => open ? handleDialogOpen() : handleDialogClose()}>
-              <DialogTrigger>
-                <TooltipButton icon={<IconButton><Eye className='dark:text-white' size={20} /></IconButton>} title='Show' />
+              
+            <DialogTrigger asChild>
+                <TooltipButton
+                  icon={<IconButton><Eye className='dark:text-white' size={20} /></IconButton>}
+                  title='Show'
+                />
               </DialogTrigger>
               <DialogContent>
                 <DetailsProduct id={productId} />

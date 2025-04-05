@@ -28,11 +28,11 @@ const Table=({
     return(
         <div className="">
             <SearchInput></SearchInput>
-            <TableContainer className="overflow-hidden rounded-radius_md bg-[#FAFAFA] dark:bg-[#171717] ">
-                <TableHeader className=" bg-blue-500 text-white">
-                <TableRow className="bg-blue-500 hover:bg-blue-400">
+            <TableContainer className="overflow-hidden rounded-t-2xl bg-[#FAFAFA] dark:bg-[#171717] ">
+                <TableHeader >
+                <TableRow className="bg-blue-300 ">
                     {columns.map(({ className, title }) => (
-                    <TableHead className={cn("text-white", className)} key={title}>
+                    <TableHead className={cn("text-black", className)} key={title}>
                         {(t(title))}
                     </TableHead>
                     ))}

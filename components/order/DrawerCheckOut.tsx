@@ -24,16 +24,18 @@ const DrawerCheckOut: React.FC<{ onClick: (id: boolean) => void }> = ({ onClick 
   });
   const { cartArray } = useSelector((state: IRootState) => state.cart)
   const { mutate } = queries.addOrder();
+  
   const onSubmit: SubmitHandler<IOrderAction> = (data: IOrderAction) => {
     const dataId={
       ...data,
-      cartArray
+      cartArray,
+      userId:localStorage.getItem('token'),
     }
     mutate(dataId, {
       onSuccess: () => {
         toast.success("Order submitted successfully!");
-        reset(); // Reset the form after successful submission
-        onClick(false); // Close the drawer after success
+        reset();
+        onClick(false)
         dispatch(clearCart())
       },
       onError: () => {

@@ -6,7 +6,13 @@ export type IProductForm = {
     imageUrl: string;
     userId:string
     id:string
+    
 };
+export type IProductCart={
+    state:string
+    quantity:number
+    timeOrder:string
+}&IProductForm
 
 export type IProductUpdate = {
     id: string;
