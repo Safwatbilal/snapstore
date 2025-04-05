@@ -37,6 +37,7 @@ console.log(categories)
     { title: "category.photoCategory" },
     { title: "global.options" },
   ];
+ 
   return (
     <>
       <PageTitle 

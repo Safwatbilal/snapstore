@@ -10,7 +10,7 @@ import { updateControlStateSideBar } from "@/store/slice/sidebar";
 import Breadcrumb from "../global/Breadcrumb";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
-
+import { IRootState } from "@/store/rootReducers";
 const SideBarAll: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
   const { state } = useSelector((state: IRootState) => state.sidebar);
   const { lang, theme } = useSelector((state: IRootState) => state.control);

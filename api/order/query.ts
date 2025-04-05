@@ -5,8 +5,8 @@ import API from "./api"
 const queries={
     addOrder:()=>
         useMutation({mutationFn:(body:IOrderForm)=>API.addOrder(body)}),
-    getAllOrderToUser:(userId:string)=>
-        useQuery({queryKey:['orders',userId],queryFn:()=>API.getAllOrderToUser(userId)})
+    getAllOrderToUser:(userId:string,filter?:string)=>
+        useQuery({queryKey:['orders',userId,filter],queryFn:()=>API.getAllOrderToUser(userId,filter)})
     
 }
 export default queries

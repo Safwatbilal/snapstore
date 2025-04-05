@@ -7,11 +7,14 @@ import Table from '@/components/global/table'
 import { TableCell, TableRow } from '@/components/ui/table'
 import ImageWithCheck from '@/components/global/ImageWithCheck'
 import { formatDate } from '@/components/global/format'
+import { useSelector } from 'react-redux'
+import { IRootState } from '@/store/rootReducers'
 const page = () => {
   const userId=localStorage.getItem('token')
   let rowIndex = 1;
-  const {data:myOrders,isLoading}=queries.getAllOrderToUser(userId as string) 
-  console.log(myOrders)
+  const {state}=useSelector((state:IRootState)=>state.control)
+  const {data:myOrders,isLoading}=queries.getAllOrderToUser(userId as string,state) 
+    console.log(myOrders)
   const baseColumns = [
     { title: '#' },
     { title: 'Image' },
@@ -23,11 +26,13 @@ const page = () => {
     { title: 'State' },
 
   ];
+console.log(state)
   return (
     <>
     <PageTitle title='Orders' subTitle='view and mange orders'></PageTitle>
-    {!isLoading&&<Overview orders={myOrders}></Overview>}
-    {}
+    
+        <Overview ></Overview>
+     
     <Table columns={baseColumns} isLoading={isLoading}>
       {myOrders?.map((order) =>
         order.cartArray.map((item, i) => (
