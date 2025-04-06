@@ -1,7 +1,6 @@
 'use client';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { dispatch } from '@/store/store';
 import { addToCart } from '@/store/slice/cart';
@@ -13,11 +12,10 @@ import {
 	Avatar,
 	IconButton,
 	Typography,
-	Skeleton,
 	Button,
 } from '@mui/material';
-
-import { Edit, ShoppingCart, Share } from 'lucide-react';
+import { IRootState } from '@/store/rootReducers';
+import { Edit, ShoppingCart, ShareIcon } from 'lucide-react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { blue } from '@mui/material/colors';
 
@@ -25,7 +23,6 @@ import TooltipButton from './tooltipButton';
 import ImageWithCheck from './ImageWithCheck';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import DetailsProduct from './DetailsProduct';
-import CardSkeleton from './CardSkeleton';
 
 interface CardsProps {
 	productName?: string;
@@ -41,45 +38,27 @@ interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({
 	productName,
-	description,
 	price,
 	imageUrl,
 	categoryName,
-	isLoading,
 	productId,
 	userId,
 	onEdit,
 }) => {
 	const { t } = useTranslation();
 	const timeOrder = new Date();
-	const userToken = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 	const { theme } = useSelector((state: IRootState) => state.control);
+	const [dialogProductId, setDialogProductId] = React.useState<string | null>(null);  // الحالة لإدارة الـ Dialog
 
-	const router = useRouter();
-	const searchParams = useSearchParams();
-	const path = usePathname();
-	const currentProductId = searchParams.get('productId');
-	const [dialogProductId, setDialogProductId] = React.useState<string | null>(null);
-
+	// فتح الـ Dialog
 	const handleDialogOpen = (productId: string) => {
-		if (dialogProductId !== productId) {
-			router.push(`?productId=${productId}`, { scroll: false });
-		}
+		setDialogProductId(productId);  // تعيين الـ productId عند فتح الـ Dialog
 	};
 
+	// غلق الـ Dialog
 	const handleDialogClose = () => {
-		const params = new URLSearchParams(searchParams.toString());
-		params.delete('productId');
-		router.push(`${path}?${params.toString()}`, { scroll: false });
+		setDialogProductId(null);  // تعيين الـ productId إلى null عند غلق الـ Dialog
 	};
-
-	React.useEffect(() => {
-		if (currentProductId) {
-			setDialogProductId(currentProductId);
-		} else {
-			setDialogProductId(null);
-		}
-	}, [currentProductId]);
 
 	const handleAddToCart = () => {
 		const item = {
@@ -104,85 +83,80 @@ const Cards: React.FC<CardsProps> = ({
 			}}
 		>
 
-
-		
-					<CardHeader
-						sx={{
-							'& .MuiCardHeader-title': {
-								color: theme === 'light' ? '#09090B' : '#FFFFFF',
-							},
-							'& .MuiCardHeader-subheader': {
-								color: theme === 'light' ? '#52525B' : '#D0D5DD',
-							},
-						}}
-						avatar={<Avatar sx={{ bgcolor: blue }}>{productName?.charAt(0)}</Avatar>}
-						action={
-							userId === userToken && (
-								<TooltipButton
-									onClick={() => onEdit?.(productId!)}
-									icon={<IconButton><Edit className="dark:text-white" size={20} /></IconButton>}
-									title="Edit"
-								/>
-							)
-						}
-						title={productName}
-						subheader={price}
+			<CardHeader
+				sx={{
+					'& .MuiCardHeader-title': {
+						color: theme === 'light' ? '#09090B' : '#FFFFFF',
+					},
+					'& .MuiCardHeader-subheader': {
+						color: theme === 'light' ? '#52525B' : '#D0D5DD',
+					},
+				}}
+				avatar={<Avatar sx={{ bgcolor: blue }}>{productName?.charAt(0)}</Avatar>}
+				action={
+					<TooltipButton
+						onClick={() => onEdit?.(productId!)}
+						icon={<IconButton><Edit className="dark:text-white" size={20} /></IconButton>}
+						title="Edit"
 					/>
+				}
+				title={productName}
+				subheader={price}
+			/>
 
-					<Dialog
-						open={dialogProductId === productId}
-						onOpenChange={(open) => {
-							if (!open) handleDialogClose();
-						}}
+			{/* الـ Dialog بدون رابط، استخدام حالة `dialogProductId` */}
+			<Dialog
+				open={dialogProductId === productId}
+				onOpenChange={(open) => {
+					if (!open) handleDialogClose();  // غلق الـ Dialog عند الضغط على زر الغلق
+				}}
+			>
+				<DialogTrigger asChild>
+					<Button
+						variant="outlined"
+						className="cursor-pointer !text-sm !p-0 !border-0 hover:bg-red-300 shadow-md !lowercase overflow-hidden"
+						onClick={() => handleDialogOpen(productId!)}  // فتح الـ Dialog عند الضغط على الصورة
 					>
-						<DialogTrigger asChild>
-							<Button
-								variant="outlined"
-								className="cursor-pointer !text-sm !p-0 !border-0 hover:bg-red-300 shadow-md !lowercase overflow-hidden"
-								onClick={() => handleDialogOpen(productId)}
-							>
-								<ImageWithCheck
-									src={imageUrl}
-									alt={productName}
-									borderRadius={false}
-									width="400px"
-									height="200px"
-								/>
-							</Button>
-						</DialogTrigger>
-						<DialogContent>
-							<DetailsProduct id={productId} />
-						</DialogContent>
-					</Dialog>
+						<ImageWithCheck
+							src={imageUrl}
+							alt={productName}
+							borderRadius={false}
+							width="400px"
+							height="200px"
+						/>
+					</Button>
+				</DialogTrigger>
+				<DialogContent>
+					<DetailsProduct id={productId} />
+				</DialogContent>
+			</Dialog>
 
-					<CardContent>
-						<Typography variant="body2" className="dark:text-white">
-							{categoryName}
-						</Typography>
-					</CardContent>
+			<CardContent>
+				<Typography variant="body2" className="dark:text-white">
+					{categoryName}
+				</Typography>
+			</CardContent>
 
-					<CardActions disableSpacing className="flex justify-around">
-						<TooltipButton
-							icon={<IconButton><FavoriteIcon className="dark:text-white" /></IconButton>}
-							title={t('global.add_to_favorites')}
-						/>
-						<TooltipButton
-							icon={<IconButton><Share className="dark:text-white" /></IconButton>}
-							title={t('global.share_product')}
-						/>
-						<TooltipButton
-							icon={
-								<IconButton onClick={handleAddToCart}>
-									<ShoppingCart className="dark:text-white" />
-								</IconButton>
-							}
-							title={t('global.add_to_cart')}
-						/>
-					</CardActions>
-				
-			
+			<CardActions disableSpacing className="flex justify-around">
+				<TooltipButton
+					icon={<IconButton><FavoriteIcon className="dark:text-white" /></IconButton>}
+					title={t('global.add_to_favorites')}
+				/>
+				<TooltipButton
+					icon={<IconButton><ShareIcon className="dark:text-white" /></IconButton>}
+					title={t('global.share_product')}
+				/>
+				<TooltipButton
+					icon={
+						<IconButton onClick={handleAddToCart}>
+							<ShoppingCart className="dark:text-white" />
+						</IconButton>
+					}
+					title={t('global.add_to_cart')}
+				/>
+			</CardActions>
+
 		</Card>
-		
 		</>
 	);
 };
