@@ -13,6 +13,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
+import { IRootState } from "@/store/rootReducers"
 import { addToCart, removeFromCart } from "@/store/slice/cart"
 import { dispatch } from "@/store/store"
 const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
@@ -24,6 +25,7 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
             quantity: number
             state:string
             timeOrder:string
+            userId:string
             
         }) => {
             dispatch(addToCart(item))

@@ -9,6 +9,7 @@ import ImageWithCheck from '@/components/global/ImageWithCheck'
 import { formatDate } from '@/components/global/format'
 import { useSelector } from 'react-redux'
 import { IRootState } from '@/store/rootReducers'
+import StateBedget from '@/components/global/StateBedget'
 const page = () => {
   const userId=localStorage.getItem('token')
   let rowIndex = 1;
@@ -31,7 +32,7 @@ console.log(state)
     <>
     <PageTitle title='Orders' subTitle='view and mange orders'></PageTitle>
     
-        <Overview ></Overview>
+        <Overview  customer={false}></Overview>
      
     <Table columns={baseColumns} isLoading={isLoading}>
       {myOrders?.map((order) =>
@@ -49,7 +50,9 @@ console.log(state)
               formatDate(item.timeOrder)
               
             }</TableCell>
-            <TableCell>{item.state}</TableCell>
+            <TableCell>
+              <StateBedget state={item.state}>{item.state}</StateBedget>
+            </TableCell>
           </TableRow>
         ))
       )}

@@ -24,26 +24,31 @@ const DrawerCheckOut: React.FC<{ onClick: (id: boolean) => void }> = ({ onClick 
   });
   const { cartArray } = useSelector((state: IRootState) => state.cart)
   const { mutate } = queries.addOrder();
-  
+
   const onSubmit: SubmitHandler<IOrderAction> = (data: IOrderAction) => {
-    const dataId={
-      ...data,
-      cartArray,
-      userId:localStorage.getItem('token'),
-    }
+    const newCartArray = cartArray.map((item) => ({
+      ...item,
+      ...data, 
+    }));
+  
+    const dataId = {
+      cartArray: newCartArray,
+      userId: localStorage.getItem('token'), 
+    };
+  
     mutate(dataId, {
       onSuccess: () => {
         toast.success("Order submitted successfully!");
         reset();
-        onClick(false)
-        dispatch(clearCart())
+        onClick(false);
+        dispatch(clearCart());
       },
       onError: () => {
         toast.error("Failed to submit order. Please try again.");
       }
     });
   };
-
+  
   return (
     <DrawerContent className="overflow-auto z-50">
       <div className="mx-auto w-full max-w-sm">

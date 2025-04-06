@@ -12,6 +12,7 @@ export type IProductCart={
     state:string
     quantity:number
     timeOrder:string
+    productId:string
 }&IProductForm
 
 export type IProductUpdate = {

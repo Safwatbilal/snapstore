@@ -13,9 +13,9 @@ import SearchInput from "./search";
 type TableProps={
     columns:{title:string;className?:string}[],
     isLoading:boolean,
-    isError:boolean,
+    isError?:boolean,
     withPagination?:boolean,
-    children: React.ReactNode;
+    children?: React.ReactNode;
 
 }
 const Table=({

@@ -34,6 +34,7 @@ const Products: React.FC<{
                       productId={id}
                       onEdit={handleProductEdit}
                       userId={userId}
+                      
                     />
          
             </Grid>

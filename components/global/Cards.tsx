@@ -85,6 +85,7 @@ const Cards: React.FC<CardsProps> = ({
 			quantity: 1,
 			state: 'pending',
 			timeOrder,
+			userId,
 		};
 		dispatch(addToCart(item));
 	};
@@ -93,7 +94,7 @@ const Cards: React.FC<CardsProps> = ({
 		<Card
 			sx={{
 				maxWidth: 500,
-				background: theme === 'dark' ? '#09090B' : '#ffffff',
+				background: theme === 'dark' ? '#171717' : '#FAFAFA',
 				border: '2px solid #FFFFFF1A',
 			}}
 		>
