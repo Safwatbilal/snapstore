@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { dispatch } from '@/store/store';
 import { addToCart } from '@/store/slice/cart';
@@ -48,17 +49,32 @@ const Cards: React.FC<CardsProps> = ({
 	const { t } = useTranslation();
 	const timeOrder = new Date();
 	const { theme } = useSelector((state: IRootState) => state.control);
-	const [dialogProductId, setDialogProductId] = React.useState<string | null>(null);  // الحالة لإدارة الـ Dialog
 
-	// فتح الـ Dialog
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const path = usePathname();
+	const currentProductId = searchParams.get('productId');
+	const [dialogProductId, setDialogProductId] = React.useState<string | null>(null);
+
 	const handleDialogOpen = (productId: string) => {
-		setDialogProductId(productId);  // تعيين الـ productId عند فتح الـ Dialog
+		if (dialogProductId !== productId) {
+			router.push(`?productId=${productId}`, { scroll: false });
+		}
 	};
 
-	// غلق الـ Dialog
 	const handleDialogClose = () => {
-		setDialogProductId(null);  // تعيين الـ productId إلى null عند غلق الـ Dialog
+		const params = new URLSearchParams(searchParams.toString());
+		params.delete('productId');
+		router.push(`${path}?${params.toString()}`, { scroll: false });
 	};
+
+	React.useEffect(() => {
+		if (currentProductId) {
+			setDialogProductId(currentProductId);
+		} else {
+			setDialogProductId(null);
+		}
+	}, [currentProductId]);
 
 	const handleAddToCart = () => {
 		const item = {
@@ -74,15 +90,13 @@ const Cards: React.FC<CardsProps> = ({
 	};
 
 	return (
-		<>
 		<Card
 			sx={{
 				maxWidth: 500,
-				background: `${theme === 'dark' ? '#09090B' : '#ffffff'}`,
+				background: theme === 'dark' ? '#09090B' : '#ffffff',
 				border: '2px solid #FFFFFF1A',
 			}}
 		>
-
 			<CardHeader
 				sx={{
 					'& .MuiCardHeader-title': {
@@ -104,18 +118,17 @@ const Cards: React.FC<CardsProps> = ({
 				subheader={price}
 			/>
 
-			{/* الـ Dialog بدون رابط، استخدام حالة `dialogProductId` */}
 			<Dialog
 				open={dialogProductId === productId}
 				onOpenChange={(open) => {
-					if (!open) handleDialogClose();  // غلق الـ Dialog عند الضغط على زر الغلق
+					if (!open) handleDialogClose();
 				}}
 			>
 				<DialogTrigger asChild>
 					<Button
 						variant="outlined"
 						className="cursor-pointer !text-sm !p-0 !border-0 hover:bg-red-300 shadow-md !lowercase overflow-hidden"
-						onClick={() => handleDialogOpen(productId!)}  // فتح الـ Dialog عند الضغط على الصورة
+						onClick={() => handleDialogOpen(productId!)}
 					>
 						<ImageWithCheck
 							src={imageUrl}
@@ -155,9 +168,7 @@ const Cards: React.FC<CardsProps> = ({
 					title={t('global.add_to_cart')}
 				/>
 			</CardActions>
-
 		</Card>
-		</>
 	);
 };
 
