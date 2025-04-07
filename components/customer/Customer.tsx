@@ -23,13 +23,16 @@ import { IconButton } from '@mui/material'
 import StateBedget from '../global/StateBedget'
 import Link from 'next/link'
 import DetailsProduct from '../global/DetailsProduct'
+import { useSelector } from 'react-redux'
+import { IRootState } from '@/store/rootReducers'
 
 const Customer = () => {
   const router = useRouter()
+  const {state}=useSelector((state:IRootState)=>state.control)
   const userId = localStorage.getItem('token')
   let rowIndex = 1
   const [stateOpen, setstateOpen] = useState<boolean|null>(null);
-  const { data: muCustomer, isLoading } = queries.getAllOrdersToOwner(userId as string)
+  const { data: muCustomer, isLoading } = queries.getAllOrdersToOwner(userId as string,state)
   const handleOpenProduct=()=>{
     setstateOpen(true)
   }

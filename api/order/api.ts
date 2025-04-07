@@ -26,25 +26,30 @@ const API={
         .filter((order) => order.cartArray.length > 0); 
       return myOrders;
     },
-    getAllOrdersToOwner: async (userId: string) => {
-      const { data } = await axios.get(API_BASE_URL + '/orders.json');
-      
-      const myOrders: IOrderForm[] = Object.keys(data)
-        .map((key) => ({
-          id: key,
-          ...data[key]
-        }))
-        .map((order) => {
-          const filteredCart = order.cartArray.filter((item: IProductCart) => item.userId === userId);
-          return {
-            ...order,
-            cartArray: filteredCart,
-          };
-        })
-        
-      
-      return myOrders;
-    }
+    getAllOrdersToOwner: async (userId: string, state: string) => {
+  const { data } = await axios.get(API_BASE_URL + '/orders.json');
+  
+  const myOrders: IOrderForm[] = Object.keys(data)
+    .map((key) => ({
+      id: key,
+      ...data[key]
+    }))
+    .map((order) => {
+      const filteredCart = order.cartArray.filter((item: IProductCart) => {
+        if (state === 'all') {
+          return item.userId === userId;
+        }
+        return item.state === state && item.userId === userId;
+      });
+
+      return {
+        ...order,
+        cartArray: filteredCart,
+      };
+    });
+
+  return myOrders;
+}
     
     
       
