@@ -14,12 +14,16 @@ import { IProductForm } from '@/api/product/type';
 import { toast } from 'sonner';
 import { dispatch } from '@/store/store';
 import { useQueryClient } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+import { IRootState } from '@/store/rootReducers';
+import RHFImageUrlsField from '../hook-form/RHFImageUrlsField';
 const ProductsActions: React.FC<{ id: string }> = ({ id }) => {
     const { t } = useTranslation();
     const queryClient=useQueryClient()
     const userId = localStorage.getItem('token');
     const { data: productDetails } = queries.getProduct(id);
     const { mutate } = queries.ProductsActions(id);
+     const { openSheet} = useSelector((state: IRootState) => state.control);
     const { data: categorys, isLoading } = category.getAllCategory(userId);
     const {
         control,
@@ -27,13 +31,13 @@ const ProductsActions: React.FC<{ id: string }> = ({ id }) => {
         watch,
         reset,
     } = useForm<IProductAction>({
-        defaultValues: defaultProductAction,
-        resolver: yupResolver(productValidation()) as unknown as Resolver<IProductAction>,
+         defaultValues: defaultProductAction,
+         resolver: yupResolver(productValidation()) as unknown as Resolver<IProductAction>,
         values: productValue(productDetails as IProductForm),
-    });
+     });
 
     const onSubmit = (data: IProductAction) => {
-        
+            console.log('ss')
         const categoryId = watch('category.categoryId');
         const selectedCategory = categorys?.find((cat) => cat.id === categoryId);
         const body = {
@@ -55,6 +59,11 @@ const ProductsActions: React.FC<{ id: string }> = ({ id }) => {
         
         });
     };
+    useEffect(()=>{
+        if(!openSheet){
+            reset(defaultProductAction)
+        }
+    },[openSheet,reset])
 
     return (
         <Sheets title={t('products.add_product')} description={t('global.add_description')}>
@@ -84,13 +93,13 @@ const ProductsActions: React.FC<{ id: string }> = ({ id }) => {
                         isLoading={false}
                         placeholder={t('products.price')}
                     />
-                    <RHFTextField
+                    <RHFImageUrlsField
                         name="imageUrl"
-                        type="text"
-                        control={control}
-                        label={t('products.imageUrl')}
+                            control={control}
                         isLoading={false}
+                        label={t('products.imageUrl')}
                         placeholder={t('products.imageUrl')}
+                      
                     />
 
                     <RHFReactSelect

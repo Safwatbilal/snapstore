@@ -37,9 +37,9 @@ const page = () => {
         onButtonClick={handleOpenSheet}
       />
       <SearchInput />
-      <Products isLoading={isLoading} products={products} handleProductEdit={handleProductEdit} ></Products>
+       <Products isLoading={isLoading} products={products} handleProductEdit={handleProductEdit} ></Products>
 
-      <ProductsActions id={idProduct} />
+      <ProductsActions id={idProduct} /> 
     </>
   );
 };

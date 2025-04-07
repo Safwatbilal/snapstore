@@ -26,6 +26,7 @@ export default function RootLayout({
                   title: "text-white",
                   success: "text-white !bg-green-500",
                   error: "!bg-red-500 text-white",
+                  icon:'text-white'
                 },
               }}
             />

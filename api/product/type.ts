@@ -3,7 +3,7 @@ export type IProductForm = {
     description: string;
     price: number;
     category: { categoryId: string;categoryName: string };
-    imageUrl: string;
+    imageUrl: string[];
     userId:string
     id:string
     

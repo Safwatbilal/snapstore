@@ -1,146 +1,151 @@
+'use client';
+
 import React from 'react'
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { Badge } from '../ui/badge';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import queries from '@/api/product/qyery'
-import Image from 'next/image'
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { DialogHeader,DialogTitle,DialogDescription, DialogFooter } from '../ui/dialog'
+import IconButton from '@mui/material/IconButton';
+import { DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../ui/dialog'
 import Typography from '../ui/typpgraphy'
-import {  TextField } from '@mui/material';
-import {  ChevronRight } from 'lucide-react';
-import { Button } from '../ui/button';
+import { ChevronRight } from 'lucide-react';
 import { defaultCommentAction, ICommentAction } from '../validation/comments';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import comments from '@/api/comment/query';
 import RHFTextField from '../hook-form/RHFTextFiled';
 import CommentsList from './comments';
-import { Separator } from '../ui/separator';
 import { useTranslation } from 'react-i18next';
 import auth from '@/api/auth/query';
 import { ShoppingCart } from "lucide-react";
 import TooltipButton from './tooltipButton';
-const DetailsProduct:React.FC<{id:string}> = ({id}) => {
-    const {data}=queries.getProduct(id)
-    const queryClient=useQueryClient()
-    const {mutate}=comments.addComment()
-    const userId=localStorage.getItem('token')
-    const {data:comment}=comments.getAllcomments(id)
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
+import ImageWithCheck from './ImageWithCheck';
+
+const DetailsProduct: React.FC<{ id: string ,handleAddToCart:(id:string)=>void}> = ({ id,handleAddToCart }) => {
+    const { t } = useTranslation()
+    const { data } = queries.getProduct(id)
+    const queryClient = useQueryClient()
+    const { mutate } = comments.addComment()
+    const userId = localStorage.getItem('token')
+    const { data: users } = auth.getAllUsers(userId ?? '')
+    const userName = users?.map((use) => use.firstName)
+    const { data: comment } = comments.getAllcomments(id)
     const {
-            handleSubmit,
-            watch,
-            formState: { errors },
-            control,
-            reset
-        } = useForm<ICommentAction>({
-            defaultValues:defaultCommentAction
-        })
-    
-    const onSubmit=(data:ICommentAction)=>{
-        const dateID={
+        handleSubmit,
+        watch,
+        control,
+        reset
+    } = useForm<ICommentAction>({
+        defaultValues: defaultCommentAction
+    })
+    const onSubmit = (data: ICommentAction) => {
+        const dateID = {
             ...data,
-            userId,
-            productId:id,
+            userName,
+            productId: id,
         }
-        console.log('aaa')
-        mutate(dateID,{
-                onSuccess:(data)=>{
-                toast.success('ss')
+        mutate(dateID, {
+            onSuccess: () => {
+                toast.success('add comment')
                 reset(defaultCommentAction)
                 queryClient.invalidateQueries({ queryKey: ['comments'] });
             }
         })
     }
-    const commentInput=watch('comment')
-    const {t}=useTranslation()
+    const commentInput = watch('comment')
     return (
         <>
             <DialogHeader>
                 <DialogTitle>{data?.productName}</DialogTitle>
                 <DialogDescription>
-                    <ResizablePanelGroup direction="horizontal" className="rounded-lg w-1 py-6">
-                        <ResizablePanel defaultSize={90}> 
-                            <div className="flex  justify-between flex-col h-[465px]  ">
-                                <div className="flex-grow overflow-auto">
+                    <ResizablePanelGroup direction="horizontal" className="rounded-lg py-6">
+                        <ResizablePanel defaultSize={90}>
+                            <div className="flex justify-between flex-col h-[465px]">
+                                <ScrollArea className="overflow-hidden">
                                     <Typography>Reviews :</Typography>
-                                    <div >
-                                        {comment?.map(({comment},index)=>(
-                                            
-                                            <CommentsList comment={comment} userName={comment} />
-                                    
+                                    <div>
+                                        {comment?.map(({ comment, userName }, index) => (
+                                            <CommentsList key={index} comment={comment} userName={userName} />
                                         ))}
                                     </div>
-                                </div>
+                                    <ScrollBar orientation='vertical' />
+                                </ScrollArea>
                             </div>
                         </ResizablePanel>
                         <ResizableHandle />
                         <ResizablePanel defaultSize={50}>
                             <ResizablePanelGroup direction="vertical">
                                 <ResizablePanel defaultSize={60}>
-                                    <div className="flex h-full items-center justify-center  ">
-                                        <img src={data?.imageUrl} className="w-full h-full bg-contain"/>
+                             
+                                    <ScrollArea className="overflow-hidden">
+                                        <div className="flex space-x-4 p-4">
+                                            {data?.imageUrl?.map((url, index) => (
+                                                <figure key={index} className="shrink-0">
+                                                    <ImageWithCheck
+                                                        src={url}
+                                                        borderRadius={false}
+                                                        width="200px"
+                                                        height="200px"
+                                                    />
+                                                </figure>
+                                            ))}
+                                        </div>
+                                        <ScrollBar orientation="horizontal" />
+                                    </ScrollArea>
+                                </ResizablePanel>
+                                <ResizableHandle />
+                                <ResizablePanel defaultSize={40}>
+                                <div className='h-[265px]'>
+                                    
+                                    <ScrollArea className=" overflow-hidden ">
+                                        <div className="block whitespace-pre-wrap break-words w-full !border-0">
+                                            {data?.description}
+                                        </div>
+                                        <ScrollBar orientation="vertical" />
+                                    </ScrollArea>
                                     </div>
                                 </ResizablePanel>
-                        <ResizableHandle />
-                        <ResizablePanel defaultSize={40} className="p-1 space-y-2 flex-grow overflow-auto max-h-60">
-                                        <Typography variant="body2" className="text-gray-600 dark:text-gray-400">
-                                                        <span className="font-medium text-gray-700 dark:text-gray-300">Category:</span> {data?.category.categoryName}
-    </Typography>
-    <div className="max-h-40 overflow-auto"> 
-        <Typography variant="body2" className="font-semibold text-gray-800 dark:text-gray-200">
-            <span className="font-medium text-gray-700 dark:text-gray-300">Description:</span> {data?.description}
-        </Typography>
-    </div>
-</ResizablePanel>
-
-
-                    </ResizablePanelGroup>
-                    </ResizablePanel>
+                            </ResizablePanelGroup>
+                        </ResizablePanel>
                     </ResizablePanelGroup>
                 </DialogDescription>
-                <DialogFooter className="flex items-center justify-center gap-2 w-full  bg-white dark:bg-black rounded-lg h-12">
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full relative">
+                <DialogFooter className="flex items-center justify-center gap-2 w-full bg-white dark:bg-black rounded-lg h-12">
+                    <form onSubmit={handleSubmit(onSubmit)} className="w-full relative">
                         <div className="relative w-full">
                             <RHFTextField
-                            placeholder="reviews.add_review"
-                            className="w-full pr-12" 
-                            control={control}
-                            type="text"
-                            isLoading={false}
-                            name="comment"
+                                placeholder="reviews.add_review"
+                                className="w-full pr-12"
+                                control={control}
+                                type="text"
+                                isLoading={false}
+                                name="comment"
+                                
                             />
                             <IconButton
-                            type="submit"
-                            className="!absolute top-[0px] right-0 w-[46px]  "
-                            disabled={!commentInput?.trim()}
+                                type="submit"
+                                className="!absolute top-[0px] right-0 w-[46px]"
+                                disabled={!commentInput?.trim()}
                             >
-                            <ChevronRight size={20} className=" dark:text-white "   />
+                                <ChevronRight size={20} className="dark:text-white" />
                             </IconButton>
                         </div>
-                        </form>
-
-                        <div className="flex gap-2">
-                        <TooltipButton  icon={<IconButton><FavoriteIcon  className='dark:text-white'/></IconButton>} title={t('global.add_to_favorites')} />
-            <TooltipButton icon={<IconButton><ShareIcon className='dark:text-white'/></IconButton>} title={t('global.share_product')} />
-            <TooltipButton icon={<IconButton><ShoppingCart className='dark:text-white'/></IconButton>} title={t('global.add_to_cart')} />
-       
- 
-                        </div>
-
-  
-</DialogFooter>
-
-
-
-        </DialogHeader>
-    </>
-  )
+                    </form>
+                    <div className="flex gap-2">
+                        <TooltipButton  icon={<IconButton><FavoriteIcon className='dark:text-white' /></IconButton>} title={t('global.add_to_favorites')} />
+                        <TooltipButton icon={<IconButton><ShareIcon className='dark:text-white' /></IconButton>} title={t('global.share_product')} />
+                        <TooltipButton  icon={<IconButton onClick={handleAddToCart}><ShoppingCart className='dark:text-white' /></IconButton>} title={t('global.add_to_cart')} />
+                    </div>
+                </DialogFooter>
+            </DialogHeader>
+        </>
+    )
 }
 
 export default DetailsProduct

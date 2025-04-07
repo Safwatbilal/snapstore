@@ -7,25 +7,22 @@ const API={
         return data;
     },
     getUser:async(userId:string)=>{
-        const {data}=await axios.get<ISignUpForm>(API_BASE_URL+`/users/${userId}.json`,)
+        const {data}=await axios.get<ISignUpForm>(API_BASE_URL+`/users.json`,)
         return data
     },
-    
-    getAllUsers: async (userId?: string) => {
+    getAllUsers: async (userId?: string): Promise<ISignUpForm[]> => {
         const { data } = await axios.get<Record<string, ISignUpForm>>(`${API_BASE_URL}/users.json`);
-        
+      
         if (!data) return [];
-    
-        const users = Object.entries(data)
-            .map(([id, user]) => ({
-                ...user,
-                id,  // إضافة id كخاصية للمستخدم
-            }));
-    
-        // تصفية المستخدمين بناءً على userId إذا تم تمريره
-        return userId ? users.filter(user => user.id === userId) : users;
-    },
-    
+      
+        const users = Object.entries(data).map(([id, user]) => ({
+          ...user,
+          id,
+        }));
+      
+        return userId ? users.filter(user => user.token === userId) : [];
+      }
+      
     
 }
 export default API;

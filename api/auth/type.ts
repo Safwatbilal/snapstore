@@ -9,4 +9,5 @@ export type ISignUpForm={
     firstName:string;
     phoneNumber:string;
     id:string;
+    token:string
 }

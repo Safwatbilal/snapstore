@@ -1,8 +1,12 @@
 
 export type ICommentAction={
-    comment:string;
+    userName: string;
+    productId: string;
+    comment: string;
     
 }
 export const defaultCommentAction={
-   comment:""
+   comment:"",
+   productId:'',
+   userName:''
 }

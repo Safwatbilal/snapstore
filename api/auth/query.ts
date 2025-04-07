@@ -3,10 +3,10 @@ import API from "./api";
 
 const queries={
     SignUp:()=>useMutation({mutationFn:API.signUp}),
-    getAllUsers:()=>
+    getAllUsers:(userId:string)=>
         useQuery({
-            queryKey:['users'],
-            queryFn:()=>API.getAllUsers()}),
+            queryKey:['users',userId],
+            queryFn:()=>API.getAllUsers(userId)}),
     getUser:(userId:string)=>useQuery({queryKey:['users',userId],queryFn:()=>API.getUser(userId)})
 }
 export default queries;

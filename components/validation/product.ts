@@ -8,7 +8,7 @@ export type IProductAction = {
     description: string;
     price: number;
     category: { categoryId: string; categoryName: string };
-    imageUrl: string;
+    imageUrl: string[];
 };
 
 export const defaultProductAction: IProductAction = {
@@ -16,7 +16,7 @@ export const defaultProductAction: IProductAction = {
     description: "",
     price: 0,
     category: { categoryId: "", categoryName: "" },
-    imageUrl: "",
+    imageUrl: [],
 };
 
 export const productValidation = () =>
@@ -27,7 +27,7 @@ export const productValidation = () =>
         category: Yup.object().shape({
             categoryId: stringValidation(),
         }), 
-        imageUrl: stringValidation(),
+
     });
 
 export const productValue = (data: IProductForm) => {

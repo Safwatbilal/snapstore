@@ -35,7 +35,7 @@ const RHFTextField: React.FunctionComponent<RHFTextFieldProps> = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative mb-3">
+    <div className="relative ">
       {label&&<RHFInputLabel label={label} name={name} />}
       
       {isLoading && <Skeleton className="h-[44px]" />}
