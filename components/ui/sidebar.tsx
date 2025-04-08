@@ -174,14 +174,14 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  // React.useEffect(() => {
+  //   if (openMobile) {
+  //     dispatch(updateControlStateSideBar({ key: "state", payload: true }));
+  //   } else {
+  //     dispatch(updateControlStateSideBar({ key: "state", payload: false }));
+  //   }
+  // }, [isMobile]);
  
-  React.useEffect(() => {
-    if (openMobile) {
-      dispatch(updateControlStateSideBar({ key: "state", payload: true }));
-    } else {
-      dispatch(updateControlStateSideBar({ key: "state", payload: false }));
-    }
-  }, [isMobile]);
    if (collapsible === "none") {
     return (
       <div

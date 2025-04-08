@@ -12,6 +12,7 @@ import { updateControlState } from "@/store/slice/control";
 import { useSelector } from "react-redux";
 import { usePathname } from "next/navigation";
 import { DrawerDemo } from "@/components/global/Drawer";
+import { IRootState } from "@/store/rootReducers";
 const TopNav = () => {
   const {t}=useTranslation()
   const path=usePathname()
@@ -21,13 +22,13 @@ const TopNav = () => {
     localStorage.clear()
   };
   
-  const {isLogout} = useSelector((state: RootState) => state.control);
-  console.log(isLogout)
+  const {isLogout} = useSelector((state: IRootState) => state.control);
+
   return (
-    <div className="flex gap-2  ">
+    <div className="flex absolute right-5 top-2 gap-4 ">
       <SelectTopBar />
       {isLogout&& isSignUp&&<Link href={SIGNUP_PATH.SIGNUP}>
-        <Button variant='outline' className="button">
+          <Button variant='outline' className="button">
           {t('sign.sign')}
         </Button>
       </Link>}

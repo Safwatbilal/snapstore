@@ -5,6 +5,7 @@ import SideBarAll from "@/components/sidebar/SideBarAll";
 import Tanstack from "@/components/Provider/Tansket";
 import { Toaster } from "sonner";
 import PreventClosePageCarts from "@/components/global/PreventClosePageCarts";
+import TopNav from "@/layout/nav/TopNav";
 
 export const metadata: Metadata = {
   title: "Snapstore",
@@ -34,6 +35,7 @@ export default function RootLayout({
                 },
               }}
             />
+              <TopNav></TopNav>
             <div className="flex">
               <SideBarAll>{children}</SideBarAll>
             </div>

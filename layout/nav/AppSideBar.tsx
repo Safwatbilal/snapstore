@@ -9,6 +9,7 @@ import {
 import SideBarItems from "./SideBarItems";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import TopNav from "./TopNav";
 
 const AppSideBar: React.FunctionComponent<{
   navListDataApp: typeof appNav;
@@ -23,7 +24,7 @@ const AppSideBar: React.FunctionComponent<{
         <SidebarGroup>
           <SideBarItems titleNav={t('sidebar.Application')} navListData={navListDataApp} />
           <SideBarItems titleNav={t('sidebar.Analysis')} navListData={navListDataAnylist} />
-        </SidebarGroup>
+              </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   );
