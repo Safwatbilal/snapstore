@@ -13,6 +13,8 @@ export type IProductCart={
     quantity:number
     timeOrder:string
     productId:string
+    address: string;
+    moreinformation: string;
 }&IProductForm
 
 export type IProductUpdate = {

@@ -27,6 +27,7 @@ import { ShoppingCart } from "lucide-react";
 import TooltipButton from './tooltipButton';
 import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import ImageWithCheck from './ImageWithCheck';
+import ActionButton from './actionButton';
 
 const DetailsProduct: React.FC<{ id: string ,handleAddToCart:(id:string)=>void}> = ({ id,handleAddToCart }) => {
     const { t } = useTranslation()
@@ -137,11 +138,7 @@ const DetailsProduct: React.FC<{ id: string ,handleAddToCart:(id:string)=>void}>
                             </IconButton>
                         </div>
                     </form>
-                    <div className="flex gap-2">
-                        <TooltipButton  icon={<IconButton><FavoriteIcon className='dark:text-white' /></IconButton>} title={t('global.add_to_favorites')} />
-                        <TooltipButton icon={<IconButton><ShareIcon className='dark:text-white' /></IconButton>} title={t('global.share_product')} />
-                        <TooltipButton  icon={<IconButton onClick={handleAddToCart}><ShoppingCart className='dark:text-white' /></IconButton>} title={t('global.add_to_cart')} />
-                    </div>
+                   <ActionButton addToCart={handleAddToCart} ></ActionButton>
                 </DialogFooter>
             </DialogHeader>
         </>

@@ -1,32 +1,29 @@
-	'use client';
-	import * as React from 'react';
-	import { useTranslation } from 'react-i18next';
-	import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-	import { useSelector } from 'react-redux';
-	import { dispatch } from '@/store/store';
-	import { addToCart } from '@/store/slice/cart';
-	import {
+'use client';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { dispatch } from '@/store/store';
+import { addToCart } from '@/store/slice/cart';
+import {
 	Card,
 	CardHeader,
 	CardContent,
 	CardActions,
-	Avatar,
 	IconButton,
-	Typography,
 	Button,
 	} from '@mui/material';
-	import { IRootState } from '@/store/rootReducers';
-	import { Edit, ShoppingCart, ShareIcon } from 'lucide-react';
-	import FavoriteIcon from '@mui/icons-material/Favorite';
-	import { blue } from '@mui/material/colors';
+import { IRootState } from '@/store/rootReducers';
+import {  Edit } from 'lucide-react';
+import { Badge } from '../ui/badge';
+import TooltipButton from './tooltipButton';
+import ImageWithCheck from './ImageWithCheck';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import DetailsProduct from './DetailsProduct';
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
+import ActionButton from './actionButton';
 
-	import TooltipButton from './tooltipButton';
-	import ImageWithCheck from './ImageWithCheck';
-	import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-	import DetailsProduct from './DetailsProduct';
-	import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-
-	interface CardsProps {
+interface CardsProps {
 	productName?: string;
 	categoryName?: string;
 	description?: string;
@@ -36,9 +33,9 @@
 	productId?: string;
 	onEdit?: (id: string) => void;
 	userId?: string;
-	}
+}
 
-	const Cards: React.FC<CardsProps> = ({
+const Cards: React.FC<CardsProps> = ({
 	productName,
 	price,
 	imageUrl,
@@ -56,9 +53,10 @@
 	const path = usePathname();
 	const currentProductId = searchParams.get('productId');
 	const [dialogProductId, setDialogProductId] = React.useState<string | null>(null);
-
+	const [link,setLink]=React.useState<string | null >(null)
 	const handleDialogOpen = (productId: string) => {
 		if (dialogProductId !== productId) {
+			
 		router.push(`?productId=${productId}`, { scroll: false });
 		}
 	};
@@ -108,7 +106,7 @@
 				color: theme === 'light' ? '#52525B' : '#D0D5DD',
 			},
 			}}
-			avatar={<Avatar sx={{ bgcolor: blue }}>{productName?.charAt(0)}</Avatar>}
+			avatar={<Badge >{productName?.charAt(0)}</Badge>}
 			action={
 			<TooltipButton
 				onClick={() => onEdit?.(productId!)}
@@ -157,29 +155,14 @@
 			</DialogContent>
 		</Dialog>
 
-		<CardContent>
-			<Typography variant="body2" className="dark:text-white">
+			<Badge variant='secondary' className='w-full p-0 rounded-none '>
+		<CardContent className='!py-3'>
 			{categoryName}
-			</Typography>
 		</CardContent>
+			</Badge>
 
 		<CardActions disableSpacing className="flex justify-around">
-			<TooltipButton
-			icon={<IconButton><FavoriteIcon className="dark:text-white" /></IconButton>}
-			title={t('global.add_to_favorites')}
-			/>
-			<TooltipButton
-			icon={<IconButton><ShareIcon className="dark:text-white" /></IconButton>}
-			title={t('global.share_product')}
-			/>
-			<TooltipButton
-			icon={
-				<IconButton onClick={handleAddToCart}>
-				<ShoppingCart className="dark:text-white" />
-				</IconButton>
-			}
-			title={t('global.add_to_cart')}
-			/>
+					<ActionButton addToCart={handleAddToCart} link={`http://localhost:3000/?productId=${productId}`}></ActionButton>
 		</CardActions>
 		</Card>
 	);

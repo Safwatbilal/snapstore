@@ -49,7 +49,26 @@ const API={
     });
 
   return myOrders;
+},
+changeStateOrder: async (orderId: string, productId: string, newState: string) => {
+  const { data: orderData } = await axios.get(`${API_BASE_URL}/orders/${orderId}.json`);
+  const updatedCartArray = orderData.cartArray.map((item: any) => {
+    if (item.productId
+      === productId) {
+      return { ...item, state: newState };
+    }
+    return item;
+  });
+
+  const { data } = await axios.put(`${API_BASE_URL}/orders/${orderId}.json`, {
+    ...orderData,
+    cartArray: updatedCartArray
+  });
+
+  return data;
 }
+
+
     
     
       

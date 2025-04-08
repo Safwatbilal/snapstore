@@ -13,6 +13,7 @@ import { dispatch } from '@/store/store'
 import { updateControlState } from '@/store/slice/control'
 import { Edit } from 'lucide-react'
 import ImageWithCheck from '@/components/global/ImageWithCheck'
+import NoData from '@/components/global/noData/NoData'
 
 const Category = () => {
   const id = localStorage.getItem('token')
@@ -63,6 +64,7 @@ console.log(categories)
           </TableRow>
         ))}
       </Table>
+        {categories&&categories.length===0&&<NoData title='no categorys'></NoData>}
       <CategoryActions  id={idCategory}  />
     </>
   )
