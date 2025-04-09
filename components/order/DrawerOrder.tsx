@@ -16,6 +16,8 @@ import {
 import { IRootState } from "@/store/rootReducers"
 import { addToCart, removeFromCart } from "@/store/slice/cart"
 import { dispatch } from "@/store/store"
+import { Badge } from "../ui/badge"
+import TooltipButton from "../global/tooltipButton"
 const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
         const handleAddToCart = (item: {
             productId: string
@@ -39,10 +41,13 @@ const DrawerOrder:React.FC<{ onClick: (id: string) => void}> = ({onClick}) => {
     return (
         <>
             <DrawerTrigger asChild>
-                    <Button variant="outline" className="bg-[#F1F2F7] cursor-pointer">
-                        <ShoppingCart size={20} />
-                        Cart
-                    </Button>
+                <TooltipButton icon={
+
+                    <Badge variant='outline' className="!border-0  cursor-pointer ">
+                        <ShoppingCart className="!w-5 !h-5" />
+                      
+                    </Badge>
+                } title="Cart"></TooltipButton>
                 </DrawerTrigger>
 
                 <DrawerContent className="overflow-auto z-50 no-after">

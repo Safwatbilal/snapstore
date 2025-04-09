@@ -31,15 +31,15 @@ const SideBarAll: React.FunctionComponent<{ children: React.ReactNode }> = ({ ch
     <SidebarProvider>
       <AppSidebar navListDataAnylist={anylistNav} navListDataApp={appNav} />
       <main className="flex flex-col min-h-screen">
-        <div className={`flex items-center  justify-between p-2 h-12 text-black ${theme} absolute  z-5`} >
-          <div  className="flex items-center gap-2">
+        <div className={`flex items-center  justify-between  text-black ${theme} absolute  z-5`} >
+          <div  className=" items-center">
             <SidebarTrigger className="cursor-pointer w-12 h-12" onClick={handleChangeStateSideBar} />
-            <Breadcrumb data={breadcrumbData} />
            
+            <Breadcrumb data={breadcrumbData} />
           </div>
         </div>
       </main>
-      <div className={`pt-14 p-4 w-full ${theme} bg-[#F1F2F7]`}>{children}</div>
+      <div className={`pt-24 p-4 w-full ${theme} bg-[#F1F2F7]`}>{children}</div>
     </SidebarProvider>
   );
 };

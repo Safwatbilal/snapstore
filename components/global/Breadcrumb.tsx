@@ -16,7 +16,7 @@ type BreadcrumbProps = {
 const Breadcrumb = ({ data }: BreadcrumbProps) => {
     const {t}=useTranslation()
     return (
-        <BreadcrumbContainer className='py-4'>
+        <BreadcrumbContainer className='ml-4 py-3'>
             <BreadcrumbList>
                 <BreadcrumbItem className='font-bold flex items-center'>
                     <span className="mr-2">{ICONS.home}</span> 
