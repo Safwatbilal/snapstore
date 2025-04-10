@@ -125,7 +125,7 @@ const Customer = () => {
                         icon={
                           <button
                             onClick={() => handleChangeState({ id: order.id, productId: customer.productId, state: "accepted" })}
-                            disabled={customer.state === "accepted"||customer.state==='completed'}
+                            disabled={customer.state === "accepted"||customer.state==='completed'||customer.state}
                             className="outline-none"
                           >
                             <Badge

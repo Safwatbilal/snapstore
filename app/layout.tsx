@@ -4,7 +4,7 @@ import Providers from "@/components/Provider/Providers";
 import SideBarAll from "@/components/sidebar/SideBarAll";
 import Tanstack from "@/components/Provider/Tansket";
 import { Toaster } from "sonner";
-import PreventClosePageCarts from "@/components/global/PreventClosePageCarts";
+//import PreventClosePageCarts from "@/components/global/PreventClosePageCarts";
 import TopNav from "@/layout/nav/TopNav";
 
 export const metadata: Metadata = {
@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <PreventClosePageCarts />
         <Providers>
           <Tanstack>
+        {/* <PreventClosePageCarts /> */}
             <Toaster
               toastOptions={{
                 unstyled: false,

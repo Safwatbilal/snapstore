@@ -80,11 +80,11 @@ const page = () => {
                         icon={
                           <button
                             onClick={() => handleChangeState({ id: order.id, productId: item.productId, state: "completed" })}
-                            disabled={item.state === "cancelled"||item.state==='completed'}
+                            disabled={item.state === "cancelled"||item.state==='completed'||item.state!=='accepted'}
                             className="outline-none"
                           >
                             <Badge
-                              className={`cursor-pointer text-black ${(item.state === "cancelled"||item.state==='completed') ? "opacity-50 pointer-events-none" : ""}`}
+                              className={`cursor-pointer text-black ${(item.state === "cancelled"||item.state==='completed'||item.state!=='accepted') ? "opacity-50 pointer-events-none" : ""}`}
                               variant='outline'
                             >
                               <Check />
