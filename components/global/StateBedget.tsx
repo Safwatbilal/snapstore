@@ -7,7 +7,7 @@ const StateBedget = ({ state, children }: { state: string, children: React.React
     string,
     { variant: 'default' | 'outline' | 'destructive'; className?: string }
   > = {
-    pending: { variant: 'default' },
+    pending: { variant: 'default',className:'bg-yellow-500' },
     accepted: { variant: 'outline', className: 'bg-green-600 text-white' },
     completed: { variant: 'outline' },
     cancelled: { variant: 'destructive' },

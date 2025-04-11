@@ -5,7 +5,8 @@ export type IProductForm = {
     category: { categoryId: string;categoryName: string };
     imageUrl: string[];
     userId:string
-    id:string
+    id:string,
+    completed:number
     
 };
 export type IProductCart={

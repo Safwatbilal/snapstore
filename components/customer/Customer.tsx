@@ -34,8 +34,10 @@ const Customer = () => {
   const router = useRouter()
   const queryClient =useQueryClient()
   const {state}=useSelector((state:IRootState)=>state.control)
+console.log({state})
   const userId = localStorage.getItem('token')
   let rowIndex = 1
+  console.log(userId)
   const [stateOpen, setstateOpen] = useState<boolean|null>(null);
   const { data: myCustomer, isLoading } = queries.getAllOrdersToOwner(userId as string,state)
   const handleOpenProduct=()=>{
@@ -64,7 +66,7 @@ const Customer = () => {
       }
     );
   };
-  console.log(myCustomer)
+  console.log({myCustomer})
   return (
     <>
    
@@ -125,7 +127,7 @@ const Customer = () => {
                         icon={
                           <button
                             onClick={() => handleChangeState({ id: order.id, productId: customer.productId, state: "accepted" })}
-                            disabled={customer.state === "accepted"||customer.state==='completed'||customer.state}
+                            disabled={customer.state === "accepted"||customer.state==='completed'}
                             className="outline-none"
                           >
                             <Badge

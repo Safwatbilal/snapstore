@@ -62,7 +62,7 @@ export const anylistNav = [
     },
     {
         title:'sidebar.Analysis',
-        pathName:'s',
+        pathName:'analysis',
         icon:ICONS.anylist
     }
 ]

@@ -51,22 +51,38 @@ const API={
   return myOrders;
 },
 changeStateOrder: async (orderId: string, productId: string, newState: string) => {
+
   const { data: orderData } = await axios.get(`${API_BASE_URL}/orders/${orderId}.json`);
+
+
+  if (newState === 'completed') {
+    const { data: productData } = await axios.get(`${API_BASE_URL}/products/${productId}.json`);
+
+    const currentCompleted = productData?.completed || 0;
+
+
+    await axios.patch(`${API_BASE_URL}/products/${productId}.json`, {
+      completed: currentCompleted + 1,
+    });
+  }
+
+
   const updatedCartArray = orderData.cartArray.map((item: any) => {
-    if (item.productId
-      === productId) {
+    if (item.productId === productId) {
       return { ...item, state: newState };
     }
     return item;
   });
 
+
   const { data } = await axios.put(`${API_BASE_URL}/orders/${orderId}.json`, {
     ...orderData,
-    cartArray: updatedCartArray
+    cartArray: updatedCartArray,
   });
 
   return data;
 }
+
 
 
     

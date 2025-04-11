@@ -44,6 +44,7 @@ const ProductsActions: React.FC<{ id: string }> = ({ id }) => {
             ...data,
             
             userId,
+            completed:0,
             category: {
                 categoryId,
                 categoryName: selectedCategory?.categoryName || '',
