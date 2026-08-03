@@ -3,7 +3,12 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { useSelector as useAppSelector } from "react-redux";
 import { persistReducer, persistStore } from "redux-persist";
 import { rootPersistConfig, rootReducer } from "./rootReducers";
-import storage from "redux-persist/lib/storage"; // استخدم التخزين المحلي
+
+// استخدم localStorage الحقيقي بالمتصفح فقط، وإلا storage وهمي بالسيرفر
+const storage =
+  typeof window !== "undefined"
+    ? require("redux-persist/lib/storage").default
+    : null;
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
@@ -13,7 +18,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
-        ignoredPaths: ["register"], // استثناء أي قيم غير قابلة للتسلسل
+        ignoredPaths: ["register"],
       },
     }),
 });

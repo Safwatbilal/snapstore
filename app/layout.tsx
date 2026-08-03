@@ -22,7 +22,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Tanstack>
-        {/* <PreventClosePageCarts /> */}
+            {/* <PreventClosePageCarts /> */}
             <Toaster
               toastOptions={{
                 unstyled: false,
@@ -35,7 +35,7 @@ export default function RootLayout({
                 },
               }}
             />
-              <TopNav></TopNav>
+            <TopNav></TopNav>
             <div className="flex">
               <SideBarAll>{children}</SideBarAll>
             </div>
