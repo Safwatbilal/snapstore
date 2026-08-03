@@ -4,15 +4,15 @@ import { ICategoryForm, ICategoryUpdate } from "./type";
 import { string } from "yup";
 const API={
     getAllCategory: async (userId: any, search?: string) => {
-        const { data } = await axios.get<ICategoryForm>(API_BASE_URL + "/category.json");
+        const { data } = await axios.get<Record<string, ICategoryForm>>(API_BASE_URL + "/category.json");
         
         if (!data) return [];
         
         const categories: ICategoryForm[] = Object.keys(data)
             .filter(key => data[key].userId === userId)
             .map(key => ({
-                id: key,
                 ...data[key],
+                id: key,
             }))
             .filter(category =>
                 search ? category.categoryName.toLowerCase().includes(search.toLowerCase()) : true

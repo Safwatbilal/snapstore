@@ -8,13 +8,12 @@ const API={
             if (!data) return [];
 
             if (userId === '0') {
-                return Object.entries(data).map(([id, product]) => ({ id, ...product }))   .filter(product => !search || product.productName.toLowerCase().includes(search.toLowerCase()));
-                ;
+                return Object.entries(data).map(([id, product]) => ({ ...product, id }))   .filter(product => !search || product.productName.toLowerCase().includes(search.toLowerCase()));
             }
-    
+
             return Object.entries(data)
                 .filter(([_, product]) => product.userId === userId)
-                .map(([id, product]) => ({ id, ...product }))
+                .map(([id, product]) => ({ ...product, id }))
                 .filter(product => !search || product.productName.toLowerCase().includes(search.toLowerCase()));
     },
     addProduct:async(body:IProductForm)=>{
