@@ -14,8 +14,9 @@ interface initialStateProps {
   theme:ITheme,
   state:IState,
 }
-const storedLogout = localStorage.getItem("token");
-const storedTheme = (localStorage.getItem("theme") as ITheme) || "light";
+const isBrowser = typeof window !== "undefined";
+const storedLogout = isBrowser ? localStorage.getItem("token") : null;
+const storedTheme = (isBrowser ? (localStorage.getItem("theme") as ITheme) : null) || "light";
 const initialState: initialStateProps = {
   lang: "en",
   isLogout: storedLogout===null ? true : false,

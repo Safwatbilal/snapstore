@@ -1,9 +1,7 @@
-import React from 'react'
-import Customer from '@/components/customer/Customer'
-const page = () => {
-  return (
-   <Customer></Customer>
-  )
-}
+import React from "react";
+import Customer from "@/components/customer/Customer";
+const Page = () => {
+  return <Customer></Customer>;
+};
 
-export default page
+export default Page;
